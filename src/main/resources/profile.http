@@ -1,0 +1,35 @@
+### create profile
+POST localhost:8080/profile/create
+Content-Type: application/json
+
+{
+  "name": "Vali",
+  "surname": "Aliyev",
+  "email": "test4@gmail.com",
+  "phone": "998991234567",
+  "password": "211123"
+}
+
+### get all with pagination
+GET localhost:8080/profile/all?pageNumber=1&pageSize=11
+
+### update
+PUT localhost:8080/profile/update/6
+Content-Type: application/json
+
+{
+  "name": "Alijons",
+  "surname": "Valiyev"
+}
+
+### delete by id
+DELETE localhost:8080/profile/delete/1
+
+### filter profile
+POST localhost:8080/profile/filter?pageNumber=1&pageSize=5
+Content-Type: application/json
+
+{
+  "createdDateFrom": "2024-05-19T11:28",
+  "createdDateTo": "2024-05-19T12:00"
+}
