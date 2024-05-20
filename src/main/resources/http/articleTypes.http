@@ -1,0 +1,31 @@
+### Create region
+POST localhost:8080/article_types/create
+Content-Type: application/json
+
+{
+  "orderNumber": 2,
+  "nameUz": "UZ",
+  "nameEn": "EN",
+  "nameRu": "RU"
+}
+### Get all
+GET localhost:8080/article_types/all
+
+
+### Get all by lang
+GET localhost:8080/article_types/lang
+Accept-Language: EN
+
+### update
+PUT localhost:8080/article_types/update/1
+Content-Type: application/json
+
+{
+  "orderNumber": 2,
+  "nameUz": "Region1 uz",
+  "nameEn": "Region1 en",
+  "nameRu": "Region1 ru"
+}
+
+### delete by id
+DELETE localhost:8080/article_types/delete/1
