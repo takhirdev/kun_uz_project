@@ -1,0 +1,31 @@
+### Create region
+POST localhost:8080/category/create
+Content-Type: application/json
+
+{
+  "orderNumber": 1,
+  "nameUz": "Toshkent",
+  "nameEn": "Tashkent",
+  "nameRu": "Бухоро"
+}
+### Get all
+GET localhost:8080/category/all
+
+
+### Get all by lang
+GET localhost:8080/category/lang
+Accept-Language: UZ
+
+### update
+PUT localhost:8080/category/update/3
+Content-Type: application/json
+
+{
+  "orderNumber": 1,
+  "nameUz": "Region1 uz",
+  "nameEn": "Region1 en",
+  "nameRu": "Region1 ru"
+}
+
+### delete by id
+DELETE localhost:8080/category/delete/3
