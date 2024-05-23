@@ -1,7 +1,7 @@
 package com.example.service;
 
+import com.example.dto.auth.LoginDTO;
 import com.example.dto.auth.RegistrationDTO;
-import com.example.dto.profile.ProfileDTO;
 import com.example.entity.ProfileEntity;
 import com.example.enums.ProfileRole;
 import com.example.enums.ProfileStatus;
@@ -20,8 +20,6 @@ public class AuthService {
     private ProfileRepository profileRepository;
     @Autowired
     private MailSenderService mailSenderService;
-    @Autowired
-    private EmailHistoryService emailHistoryService;
     public String authorization(RegistrationDTO dto) {
 
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
@@ -67,8 +65,6 @@ public class AuthService {
                 "    </div>";
         String text = String.format(formatText, url);
         mailSenderService.send(dto.getEmail(), "Complete registration", text);
-
-        emailHistoryService.save(dto.getEmail(), url);
         return "To complete your registration please verify your email.";
 
     }
@@ -86,27 +82,18 @@ public class AuthService {
         return "Success";
     }
 
-    public ProfileDTO login(String email, String password) {
-        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(email);
+    public String login(LoginDTO dto) {
+        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
         if (optional.isEmpty()) {
             throw new AppBadException("User not found");
         }
         ProfileEntity entity = optional.get();
-
-        if (!entity.getPassword().equals(MD5Util.getMd5(password))){
+        if (!entity.getPassword().equals(MD5Util.getMd5(dto.getPassword()))) {
             throw new AppBadException("Wrong password");
         }
         if(entity.getStatus().equals(ProfileStatus.NOT_ACTIVE)||entity.getStatus().equals(ProfileStatus.REGISTRATION)){
             throw new AppBadException("User should be  active");
         }
-
-        ProfileDTO dto = new ProfileDTO();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        dto.setSurname(entity.getSurname());
-        dto.setEmail(entity.getEmail());
-        dto.setPhone(entity.getPhone());
-        dto.setCreatedDate(entity.getCreatedDate());
-        return dto;
+        return "Success";
     }
 }
