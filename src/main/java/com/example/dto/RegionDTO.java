@@ -1,4 +1,4 @@
-package com.example.dto.region;
+package com.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
