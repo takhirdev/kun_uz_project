@@ -24,23 +24,20 @@ public class ProfileService {
     private ProfileCustomRepository customRepository;
 
     public ProfileDTO create(ProfileCreateDTO dto) {
-
         ProfileEntity save = profileRepository.save(toEntity(dto));
         return toDTO(save);
     }
+    
     public Page<ProfileDTO> getAll(int pageNumber, Integer pageSize) {
-
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("createdDate").descending());
         Page<ProfileEntity> entityPage = profileRepository.findAllByVisibleTrue(pageable);
-
         List<ProfileDTO> list = entityPage.getContent().stream()
                 .map(this::toDTO)
                 .toList();
-
         Long totalElements = entityPage.getTotalElements();
-
         return new PageImpl<ProfileDTO>(list, pageable, totalElements);
     }
+    
     public ProfileDTO update(Integer id, ProfileCreateDTO dto) {
         ProfileEntity entity = get(id);
 
@@ -73,13 +70,10 @@ public class ProfileService {
     }
 
     public Page<ProfileDTO> filter(ProfileFilterDTO dto, Integer pageNumber, Integer pageSize) {
-
         FilterResponseDTO<ProfileEntity> filterResponse = customRepository.filter(dto, pageNumber, pageSize);
-
         List<ProfileDTO> dtoList = filterResponse.getContent().stream()
                 .map(this::toDTO)
                 .toList();
-
         Long totalCount = filterResponse.getTotalCount();
         return new PageImpl<>(dtoList,PageRequest.of(pageNumber,pageSize),totalCount);
     }
