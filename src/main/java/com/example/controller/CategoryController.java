@@ -1,9 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.CategoryCreateDTO;
-import com.example.dto.CategoryDTO;
-import com.example.dto.RegionCreateDTO;
-import com.example.dto.RegionDTO;
+import com.example.dto.category.CategoryCreateDTO;
+import com.example.dto.category.CategoryDTO;
 import com.example.enums.Language;
 import com.example.service.CategoryService;
 import jakarta.validation.Valid;

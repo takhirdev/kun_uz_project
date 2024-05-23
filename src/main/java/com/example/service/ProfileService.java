@@ -1,12 +1,12 @@
 package com.example.service;
 
 import com.example.dto.FilterResponseDTO;
-import com.example.dto.ProfileCreateDTO;
-import com.example.dto.ProfileDTO;
-import com.example.dto.ProfileFilterDTO;
+import com.example.dto.profile.ProfileCreateDTO;
+import com.example.dto.profile.ProfileDTO;
+import com.example.dto.profile.ProfileFilterDTO;
 import com.example.entity.ProfileEntity;
-import com.example.enums.Role;
-import com.example.enums.Status;
+import com.example.enums.ProfileRole;
+import com.example.enums.ProfileStatus;
 import com.example.exception.AppBadException;
 import com.example.repository.ProfileCustomRepository;
 import com.example.repository.ProfileRepository;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -96,8 +95,8 @@ public class ProfileService {
         entity.setEmail(dto.getEmail());
         entity.setPassword(MD5Util.getMd5(dto.getPassword()));
         entity.setPhone(dto.getPhone());
-        entity.setRole(Role.USER);
-        entity.setStatus(Status.ACTIVE);
+        entity.setRole(ProfileRole.ROLE_USER);
+        entity.setStatus(ProfileStatus.ACTIVE);
         return entity;
     }
 
@@ -108,8 +107,8 @@ public class ProfileService {
         dto.setSurname(entity.getSurname());
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhone());
-        dto.setRole(entity.getRole());
-        dto.setStatus(entity.getStatus());
+        dto.setProfileRole(entity.getRole());
+        dto.setProfileStatus(entity.getStatus());
         dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }

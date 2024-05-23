@@ -1,7 +1,6 @@
-package com.example.dto;
+package com.example.dto.profile;
 
-import com.example.enums.Role;
-import com.example.enums.Status;
+import com.example.enums.ProfileRole;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,7 @@ public class ProfileFilterDTO {
     private String name;
     private String surname;
     private String phone;
-    private Role role;
+    private ProfileRole profileRole;
     private LocalDateTime createdDateFrom;
     private LocalDateTime createdDateTo;
 }

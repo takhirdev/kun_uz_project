@@ -1,7 +1,7 @@
-package com.example.dto;
+package com.example.dto.profile;
 
-import com.example.enums.Role;
-import com.example.enums.Status;
+import com.example.enums.ProfileRole;
+import com.example.enums.ProfileStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +18,8 @@ public class ProfileDTO {
     private String email;
     private String phone;
     private String password;
-    private Status status;
-    private Role role;
+    private ProfileStatus profileStatus;
+    private ProfileRole profileRole;
     private Boolean visible;
     private LocalDateTime createdDate;
     private Integer photoId;

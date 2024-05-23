@@ -1,9 +1,8 @@
 package com.example.controller;
 
-import com.example.dto.ProfileCreateDTO;
-import com.example.dto.ProfileDTO;
-import com.example.dto.ProfileFilterDTO;
-import com.example.repository.ProfileCustomRepository;
+import com.example.dto.profile.ProfileCreateDTO;
+import com.example.dto.profile.ProfileDTO;
+import com.example.dto.profile.ProfileFilterDTO;
 import com.example.service.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

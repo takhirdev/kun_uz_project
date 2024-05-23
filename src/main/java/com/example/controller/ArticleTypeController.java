@@ -1,9 +1,7 @@
 package com.example.controller;
 
-import com.example.dto.ArticleTypesCreateDTO;
-import com.example.dto.ArticleTypesDTO;
-import com.example.dto.CategoryCreateDTO;
-import com.example.dto.CategoryDTO;
+import com.example.dto.article.ArticleTypesCreateDTO;
+import com.example.dto.article.ArticleTypesDTO;
 import com.example.enums.Language;
 import com.example.service.ArticleTypesService;
 import jakarta.validation.Valid;

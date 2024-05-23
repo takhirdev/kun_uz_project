@@ -1,7 +1,7 @@
 package com.example.repository;
 
 import com.example.dto.FilterResponseDTO;
-import com.example.dto.ProfileFilterDTO;
+import com.example.dto.profile.ProfileFilterDTO;
 import com.example.entity.ProfileEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -34,9 +34,9 @@ public class ProfileCustomRepository {
             query.append(" and p.phone = :phone ");
             params.put("phone", dto.getPhone());
         }
-        if (dto.getRole() != null) {
+        if (dto.getProfileRole() != null) {
             query.append(" and p.role = :role ");
-            params.put("role", dto.getRole());
+            params.put("role", dto.getProfileRole());
         }
         if (dto.getCreatedDateFrom() != null) {
             query.append(" and p.createdDate >= :createdDateFrom ");
