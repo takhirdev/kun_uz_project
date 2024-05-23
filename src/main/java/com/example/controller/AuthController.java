@@ -1,6 +1,5 @@
 package com.example.controller;
 
-<<<<<<< HEAD
 import com.example.dto.auth.RegistrationDTO;
 import com.example.dto.profile.ProfileDTO;
 import com.example.service.AuthService;
@@ -26,17 +25,12 @@ public class AuthController {
         String body = authService.authorizationVerification(userId);
         return ResponseEntity.ok().body(body);
     }
+
     @PostMapping("/login")
-<<<<<<< HEAD
+
     public ResponseEntity<ProfileDTO> login(@RequestParam String email,
                                             @RequestParam String password) {
-        ProfileDTO response = authService.login(email,password);
+        ProfileDTO response = authService.login(email, password);
         return ResponseEntity.ok().body(response);
-=======
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDTO dto) {
-        String body = authService.login(dto);
-        return ResponseEntity.ok().body(body);
->>>>>>> origin/master
     }
-
 }

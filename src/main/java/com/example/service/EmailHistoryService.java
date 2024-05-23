@@ -34,7 +34,9 @@ public class EmailHistoryService {
     }
 
     public List<EmailHistoryDTO> getAllByGivenDate(LocalDate date) {
-        List<EmailHistoryDTO> dtoList = emailHistoryRepository.findAllByCreatedDate(date)
+        LocalDate from = date;
+        LocalDate to = date.plusDays(1);
+        List<EmailHistoryDTO> dtoList = emailHistoryRepository.findAllByGivenDate(from, to)
                 .stream()
                 .map(this::toDTO)
                 .toList();
