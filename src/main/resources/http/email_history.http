@@ -1,7 +1,7 @@
 ### get by email
 GET http://localhost:8080/email/ByEmail?email=takhir.ismailoff@gmail.com
 
-### get by email
+### get by given date
 GET http://localhost:8080/email/givenDate?date=2024-05-23
 
 ### pagination

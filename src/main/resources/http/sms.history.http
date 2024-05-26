@@ -1,0 +1,8 @@
+### get by phone
+GET http://localhost:8080/sms/byPhone?phone=998946486808
+
+### get by given date
+GET http://localhost:8080/sms/givenDate?date=2024-05-23
+
+### pagination
+GET http://localhost:8080/sms/pagination?pageNumber=1&pageSize=3

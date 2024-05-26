@@ -13,10 +13,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/email")
 public class EmailHistoryController {
-    @Autowired
-    private EmailHistoryService emailHistoryService;
+        @Autowired
+        private EmailHistoryService emailHistoryService;
 
-    @GetMapping("/ByEmail")
+    @GetMapping("/byEmail")
     public ResponseEntity<List<EmailHistoryDTO>> getAllByEmail(@RequestParam String email) {
         List<EmailHistoryDTO> dtoList = emailHistoryService.getAllByEmail(email);
         return ResponseEntity.ok(dtoList);
@@ -32,5 +32,4 @@ public class EmailHistoryController {
         Page<EmailHistoryDTO> page = emailHistoryService.pagination(pageNumber-1, pageSize);
         return ResponseEntity.ok(page);
     }
-
 }
