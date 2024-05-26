@@ -1,6 +1,6 @@
 package com.example.repository;
 
-import com.example.mapper.RegionMapper;
+import com.example.mapper.Mapper;
 import com.example.entity.RegionEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,5 +16,5 @@ public interface RegionRepository extends CrudRepository<RegionEntity,Integer> {
             "   WHEN 'RU' THEN name_ru " +
             "  END as name " +
             "from region order by order_number desc; ", nativeQuery = true)
-    List<RegionMapper> findAllByLang(@Param("lang") String lang);
+    List<Mapper> findAllByLang(@Param("lang") String lang);
 }

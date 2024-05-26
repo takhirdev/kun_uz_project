@@ -1,6 +1,6 @@
 package com.example.mapper;
 
-public interface RegionMapper {
+public interface Mapper {
     Integer getId();
     String getName();
 }

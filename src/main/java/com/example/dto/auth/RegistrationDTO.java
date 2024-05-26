@@ -6,13 +6,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegistrationDTO {
+public class  RegistrationDTO {
     @NotBlank
     private String name;
     @NotBlank
     private String surname;
     @NotBlank
     private String email;
+    @NotBlank
+    private String phone;
     @NotBlank
     private String password;
 }

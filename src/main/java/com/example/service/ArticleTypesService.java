@@ -1,11 +1,11 @@
 package com.example.service;
 
-import com.example.dto.ArticleTypesCreateDTO;
-import com.example.dto.ArticleTypesDTO;
+import com.example.dto.article.ArticleTypesCreateDTO;
+import com.example.dto.article.ArticleTypesDTO;
 import com.example.entity.ArticleTypesEntity;
 import com.example.enums.Language;
 import com.example.exception.AppBadException;
-import com.example.mapper.ArticleTypesMapper;
+import com.example.mapper.Mapper;
 import com.example.repository.ArticleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class ArticleTypesService {
     }
 
     public List<ArticleTypesDTO> getAllByLang(Language lang) {
-        List<ArticleTypesMapper> mapperList = articleTypeRepository.findAllByLang(lang.name());
+        List<Mapper> mapperList = articleTypeRepository.findAllByLang(lang.name());
         List<ArticleTypesDTO> dtoList = mapperList.stream()
                 .map(entity -> {
                     ArticleTypesDTO dto = new ArticleTypesDTO();

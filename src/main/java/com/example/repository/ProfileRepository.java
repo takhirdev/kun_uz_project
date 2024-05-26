@@ -14,6 +14,7 @@ import java.util.Optional;
 public interface ProfileRepository extends CrudRepository<ProfileEntity, Integer> {
     Page<ProfileEntity> findAllByVisibleTrue(Pageable pageable);
     Optional<ProfileEntity> findByEmailAndVisibleTrue(String email);
+    Optional<ProfileEntity> findByPhoneAndVisibleTrue(String phone);
 
     @Transactional
     @Modifying

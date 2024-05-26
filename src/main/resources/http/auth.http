@@ -1,14 +1,56 @@
-### Registration
-POST localhost:8080/auth/registration
+### Registration with phone
+POST localhost:8080/auth/registrationWithPhone
 Content-Type: application/json
 
 {
   "name": "Takhir",
   "surname": "Ismailov",
-  "email": "takhir.4ismailoff@gmail.com",
+  "email": "mazgi@gmail.com",
+  "phone": "9989464686808",
+  "password": "12345"
+}
+### Registration with email
+POST localhost:8080/auth/registration
+Content-Type: application/json
+
+{
+"name": "Takhir",
+"surname": "Ismailov",
+"email": "takhir.ismailoff@gmail.com",
+"password": "12345"
+}
+
+### resend sms
+GET localhost:8080/auth/registration/resendSms/998946486808
+
+### resend email
+GET localhost:8080/auth/registration/resend/takhir.ismailoff@gmail.com
+
+### verification with phone
+POST localhost:8080/auth/verificationWithSms
+Content-Type: application/json
+
+{
+    "phone": "998946486808",
+    "message": "72855"
+}
+
+
+### login with email
+POST localhost:8080/auth/loginWithEmail
+Content-Type: application/json
+
+{
+  "email": "mazgi@gmail.com",
   "password": "12345"
 }
 
-### login
-POST localhost:8080/auth/login?email=takhir.ismailoff@gmail.com&password=12345
+### login with phone
+POST localhost:8080/auth/loginWithPhone
+Content-Type: application/json
 
+{
+
+  "phone": "998940460720",
+  "password": "12345"
+}

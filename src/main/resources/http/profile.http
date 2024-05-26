@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### delete by id
-DELETE localhost:8080/profile/delete/1
+DELETE localhost:8080/profile/delete/9
 
 ### filter profile
 POST localhost:8080/profile/filter?pageNumber=1&pageSize=5
