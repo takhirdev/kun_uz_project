@@ -19,7 +19,7 @@ public class EmailSenderService {
     String fromMailAddress;
 
     public void sendEmail(Integer profileId, String email){
-        String url = "http://localhost:8080/auth/verification/" + profileId;
+        String url = "http://localhost:8080/auth/verificationWithEmail/" + profileId;
         String formatText = "<style>\n" +
                 "    a:link, a:visited {\n" +
                 "        background-color: #f44336;\n" +
@@ -47,13 +47,6 @@ public class EmailSenderService {
     }
 
     public void send(String toAccount, String subject, String text){
-
-//        SimpleMailMessage msg = new SimpleMailMessage();
-//        msg.setFrom(fromMailAddress);
-//        msg.setTo(toAccount);
-//        msg.setSubject(subject);
-//        msg.setText(text);
-
         try {
             MimeMessage msg = javaMailSender.createMimeMessage();
             msg.setFrom(fromMailAddress);

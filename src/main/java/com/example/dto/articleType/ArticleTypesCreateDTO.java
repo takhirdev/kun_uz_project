@@ -1,4 +1,4 @@
-package com.example.dto.article;
+package com.example.dto.articleType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;

@@ -42,9 +42,9 @@ public class SmsHistoryService {
     }
 
     public Page<SmsHistoryDTO> pagination(Integer pageNumber, Integer pageSize){
-
         Pageable pageable = PageRequest.of(pageNumber,pageSize, Sort.by("createdDate").descending());
         Page<SmsHistoryEntity> entityPage = smsHistoryRepository.findAllBy(pageable);
+
         List<SmsHistoryDTO> dtoList = entityPage.getContent().stream()
                 .map(this::toDTO)
                 .toList();

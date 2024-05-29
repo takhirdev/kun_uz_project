@@ -4,6 +4,7 @@ import com.example.dto.FilterResponseDTO;
 import com.example.dto.profile.ProfileCreateDTO;
 import com.example.dto.profile.ProfileDTO;
 import com.example.dto.profile.ProfileFilterDTO;
+import com.example.dto.profile.ProfileUpdateDTO;
 import com.example.entity.ProfileEntity;
 import com.example.enums.ProfileRole;
 import com.example.enums.ProfileStatus;
@@ -38,28 +39,10 @@ public class ProfileService {
         return new PageImpl<ProfileDTO>(list, pageable, totalElements);
     }
     
-    public ProfileDTO update(Integer id, ProfileCreateDTO dto) {
+    public ProfileDTO update(Integer id, ProfileUpdateDTO dto) {
         ProfileEntity entity = get(id);
-
-        if (dto.getName()!=null){
             entity.setName(dto.getName());
-        }
-        if (dto.getSurname()!=null){
             entity.setSurname(dto.getSurname());
-        }
-
-        if (dto.getEmail()!=null){
-            entity.setEmail(dto.getEmail());
-        }
-
-        if (dto.getPassword()!=null){
-            entity.setPassword(dto.getPassword());
-        }
-
-        if (dto.getPhone()!=null){
-            entity.setPhone(dto.getPhone());
-        }
-
         ProfileEntity saved = profileRepository.save(entity);
         return toDTO(saved);
     }

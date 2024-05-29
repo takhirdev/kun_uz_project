@@ -12,9 +12,11 @@ import com.example.enums.ProfileStatus;
 import com.example.exception.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.SmsHistoryRepository;
+import com.example.util.JwtUtil;
 import com.example.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -32,23 +34,27 @@ public class AuthService {
     private SmsSenderService smsSenderService;
     @Autowired
     private SmsHistoryService smsHistoryService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public String registrWithEmail(RegistrationDTO dto) {
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
         if (optional.isPresent()) {
             throw new AppBadException("Email already exists");
         }
+
         ProfileEntity entity = new ProfileEntity();
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
+        entity.setPhone(dto.getPhone());
         entity.setEmail(dto.getEmail());
         entity.setPassword(MD5Util.getMd5(dto.getPassword()));
         entity.setCreatedDate(LocalDateTime.now());
         entity.setRole(ProfileRole.ROLE_USER);
         entity.setStatus(ProfileStatus.REGISTRATION);
 
-        profileRepository.save(entity);
-        emailSenderService.sendEmail(entity.getId(),entity.getEmail());
+        ProfileEntity saved = profileRepository.save(entity);
+        emailSenderService.sendEmail(saved.getId(), saved.getEmail());
         return "To complete your registration please verify your email.";
     }
 
@@ -57,6 +63,7 @@ public class AuthService {
         if (optional.isPresent()) {
             throw new AppBadException("phone already exists");
         }
+
         ProfileEntity entity = new ProfileEntity();
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());
@@ -73,12 +80,11 @@ public class AuthService {
     }
 
     public String verifyWithEmail(Integer userId) {
-        Optional<ProfileEntity> optional = profileRepository.findById(userId);
-        if (optional.isEmpty()) {
-            throw new AppBadException("User not found");
-        }
-        ProfileEntity entity = optional.get();
+        ProfileEntity entity = profileRepository.findById(userId)
+                .orElseThrow(() -> new AppBadException("User not found"));
+
         emailHistoryService.isNotExpiredEmail(entity.getEmail());  // check for expiration date
+
         if (!entity.getVisible() || !entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("Registration not completed");
         }
@@ -87,22 +93,19 @@ public class AuthService {
     }
 
     public String verifyWithSms(SmsHistoryDTO dto) {
-        Optional<ProfileEntity> optionalProfile = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
-        if (optionalProfile.isEmpty()) {
-            throw new AppBadException("User not found");
-        }
-        ProfileEntity profileEntity = optionalProfile.get();
+        ProfileEntity profileEntity = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone())
+                .orElseThrow(() -> new AppBadException("User not found"));
+
         if (!profileEntity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("Registration not completed");
         }
 
-        Optional<SmsHistoryEntity> optionalSms = smsHistoryRepository.findTopByPhoneOrderByCreatedDateDesc(dto.getPhone());
-        if (optionalSms.isEmpty()){
-            throw new AppBadException("phone not found");
-        }
-        SmsHistoryEntity smsEntity = optionalSms.get();
+        SmsHistoryEntity smsEntity = smsHistoryRepository.findTopByPhoneOrderByCreatedDateDesc(dto.getPhone())
+                        .orElseThrow(() -> new AppBadException("phone not found"));
+
         smsHistoryService.isExpired(smsEntity.getPhone()); // check for expiration time
-        if (!smsEntity.getMessage().equals(dto.getMessage())){
+
+        if (!smsEntity.getMessage().equals(dto.getMessage())) {
             throw new AppBadException("wrong password");
         }
 
@@ -110,28 +113,28 @@ public class AuthService {
         return "registration finished successfully ";
     }
 
-    public String resendEmail(String email){
+    public String resendEmail(String email) {
         Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(email);
-        if (optional.isEmpty()){
+        if (optional.isEmpty()) {
             throw new AppBadException("Email not exists");
         }
         ProfileEntity entity = optional.get();
-        if (!entity.getStatus().equals(ProfileStatus.REGISTRATION)){
+        if (!entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("Registration not completed");
         }
 
         emailHistoryService.checkEmailLimit(email);
-        emailSenderService.sendEmail(entity.getId(),email);
+        emailSenderService.sendEmail(entity.getId(), email);
         return "To complete your registration please verify your email.";
     }
 
     public String resendSms(String phone) {
         Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(phone);
-        if (optional.isEmpty()){
+        if (optional.isEmpty()) {
             throw new AppBadException("phone not exists");
         }
         ProfileEntity entity = optional.get();
-        if (!entity.getStatus().equals(ProfileStatus.REGISTRATION)){
+        if (!entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("Registration not completed");
         }
         smsHistoryService.checkSmsLimit(phone); // check for limit
@@ -140,15 +143,13 @@ public class AuthService {
     }
 
     public ProfileDTO loginWithEmail(LoginDTO dto) {
-        Optional<ProfileEntity> optional = profileRepository.findByEmailAndVisibleTrue(dto.getEmail());
-        if (optional.isEmpty()) {
-            throw new AppBadException("User not found");
-        }
-        ProfileEntity entity = optional.get();
+        ProfileEntity entity = profileRepository.findByEmailAndVisibleTrue(dto.getEmail())
+                .orElseThrow(() -> new AppBadException("User not found"));
+
         if (!entity.getPassword().equals(MD5Util.getMd5(dto.getPassword()))) {
             throw new AppBadException("Wrong password");
         }
-        if(entity.getStatus().equals(ProfileStatus.NOT_ACTIVE)||entity.getStatus().equals(ProfileStatus.REGISTRATION)){
+        if (entity.getStatus().equals(ProfileStatus.NOT_ACTIVE) || entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("User should be  active");
         }
         ProfileDTO response = new ProfileDTO();
@@ -157,19 +158,19 @@ public class AuthService {
         response.setSurname(entity.getSurname());
         response.setPhone(entity.getPhone());
         response.setCreatedDate(entity.getCreatedDate());
+        response.setJwt(jwtUtil.generateToken(entity.getId(), entity.getName(), entity.getRole()));
         return response;
     }
 
     public ProfileDTO loginWithPhone(LoginDTO dto) {
-        Optional<ProfileEntity> optional = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone());
-        if (optional.isEmpty()) {
-            throw new AppBadException("User not found");
-        }
-        ProfileEntity entity = optional.get();
+        ProfileEntity entity = profileRepository.findByPhoneAndVisibleTrue(dto.getPhone())
+                .orElseThrow(() -> new AppBadException("User not found"));
+
         if (!entity.getPassword().equals(MD5Util.getMd5(dto.getPassword()))) {
             throw new AppBadException("Wrong password");
         }
-        if(entity.getStatus().equals(ProfileStatus.NOT_ACTIVE)||entity.getStatus().equals(ProfileStatus.REGISTRATION)){
+
+        if (entity.getStatus().equals(ProfileStatus.NOT_ACTIVE) || entity.getStatus().equals(ProfileStatus.REGISTRATION)) {
             throw new AppBadException("User should be  active");
         }
         ProfileDTO response = new ProfileDTO();
@@ -178,6 +179,7 @@ public class AuthService {
         response.setSurname(entity.getSurname());
         response.setPhone(entity.getPhone());
         response.setCreatedDate(entity.getCreatedDate());
+        response.setJwt(jwtUtil.generateToken(entity.getId(), entity.getName(), entity.getRole()));
         return response;
     }
 }

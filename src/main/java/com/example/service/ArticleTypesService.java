@@ -1,7 +1,7 @@
 package com.example.service;
 
-import com.example.dto.article.ArticleTypesCreateDTO;
-import com.example.dto.article.ArticleTypesDTO;
+import com.example.dto.articleType.ArticleTypesCreateDTO;
+import com.example.dto.articleType.ArticleTypesDTO;
 import com.example.entity.ArticleTypesEntity;
 import com.example.enums.Language;
 import com.example.exception.AppBadException;

@@ -1,29 +1,45 @@
 ### create profile
 POST localhost:8080/profile/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTY5ODczMzYsImlkIjoxLCJuYW1lIjoiVGFraGlyIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3MTcwNzM3MzYsImlzcyI6Ikt1blV6In0.AceFq21a2uSnYLqJjeb3KmCYSE1PP0tSfnSDmvrG_yrhNG2yx86NVgyEvpZwtzHOYIw5OeBZilqR5OUuPgdWjA
 
 {
-  "name": "Vali",
+  "name": "Anvar",
   "surname": "Aliyev",
-  "email": "test4@gmail.com",
+  "email": "test1@gmail.com",
   "phone": "998991234567",
   "password": "211123"
 }
 
 ### get all with pagination
 GET localhost:8080/profile/all?pageNumber=1&pageSize=11
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTY5ODczMzYsImlkIjoxLCJuYW1lIjoiVGFraGlyIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3MTcwNzM3MzYsImlzcyI6Ikt1blV6In0.AceFq21a2uSnYLqJjeb3KmCYSE1PP0tSfnSDmvrG_yrhNG2yx86NVgyEvpZwtzHOYIw5OeBZilqR5OUuPgdWjA
 
-### update
-PUT localhost:8080/profile/update/6
+
+### update own details
+PUT localhost:8080/profile/update/current
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTY5ODgwNjYsImlkIjozLCJuYW1lIjoiQWxpc2giLCJyb2xlIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzE3MDc0NDY2LCJpc3MiOiJLdW5VeiJ9.mgPPPP3Zmw2rHinD7dnEeko4OwJVe4FIoLYGgAySo4WEQkxMlhCMB1fL9v5sJuRPj4BAorpFDJVUu2muHpXu6w
 
 {
-  "name": "Alijons",
-  "surname": "Valiyev"
+  "name": "Latta",
+  "surname": "Kattayev"
+}
+
+
+### update admin
+PUT localhost:8080/profile/update/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTY5ODczMzYsImlkIjoxLCJuYW1lIjoiVGFraGlyIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3MTcwNzM3MzYsImlzcyI6Ikt1blV6In0.AceFq21a2uSnYLqJjeb3KmCYSE1PP0tSfnSDmvrG_yrhNG2yx86NVgyEvpZwtzHOYIw5OeBZilqR5OUuPgdWjA
+
+{
+"name": "Alish",
+"surname": "Aliyev"
 }
 
 ### delete by id
-DELETE localhost:8080/profile/delete/9
+DELETE localhost:8080/profile/delete/6
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTY5ODczMzYsImlkIjoxLCJuYW1lIjoiVGFraGlyIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3MTcwNzM3MzYsImlzcyI6Ikt1blV6In0.AceFq21a2uSnYLqJjeb3KmCYSE1PP0tSfnSDmvrG_yrhNG2yx86NVgyEvpZwtzHOYIw5OeBZilqR5OUuPgdWjA
 
 ### filter profile
 POST localhost:8080/profile/filter?pageNumber=1&pageSize=5
@@ -31,5 +47,5 @@ Content-Type: application/json
 
 {
   "createdDateFrom": "2024-05-19T11:28",
-  "createdDateTo": "2024-05-19T12:00"
+  "createdDateTo": "2024-05-30T12:00"
 }
