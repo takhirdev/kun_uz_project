@@ -15,7 +15,7 @@ public class JwtUtil {
     @Value("${jwt.token.validate}")
     private Integer tokenLiveTime;
 
-    public  String generateToken(Integer profileId, String name, ProfileRole role) {
+    public  String generateToken(Integer profileId,String username, ProfileRole role) {
         SignatureAlgorithm signatureAlgorithm  = SignatureAlgorithm.HS512;
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), signatureAlgorithm.getJcaName());
 
@@ -23,7 +23,7 @@ public class JwtUtil {
                 .issuedAt(new Date())
                 .signWith(secretKeySpec)
                 .claim("id", profileId)
-                .claim("name", name)
+                .claim("username", username)
                 .claim("role", role)
                 .expiration(new Date(System.currentTimeMillis() + tokenLiveTime))
                 .issuer("KunUz")
@@ -43,12 +43,12 @@ public class JwtUtil {
         Claims claims = jws.getPayload();
 
         Integer id = (Integer) claims.get("id");
+        String username = (String) claims.get("username");
         String role = (String) claims.get("role");
-        String name = (String) claims.get("name");
         if (role != null) {
             ProfileRole profileRole = ProfileRole.valueOf(role);
-            return new JwtDTO(id, name, profileRole);
+            return new JwtDTO(id, username, profileRole);
         }
-        return new JwtDTO(id, name);
+        return new JwtDTO(id);
     }
 }

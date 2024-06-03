@@ -1,8 +1,9 @@
 ### get by phone
 GET http://localhost:8080/sms/byPhone?phone=998946486808
-
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 ### get by given date
 GET http://localhost:8080/sms/givenDate?date=2024-05-23
-
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 ### pagination
-GET http://localhost:8080/sms/pagination?pageNumber=1&pageSize=3
+GET http://localhost:8080/sms/admin/pagination?pageNumber=1&pageSize=3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"

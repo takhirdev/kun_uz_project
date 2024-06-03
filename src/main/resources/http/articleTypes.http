@@ -1,6 +1,7 @@
-### Create region
-POST localhost:8080/article_types/create
+### Create types
+POST localhost:8080/types/admin/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
 
 {
   "orderNumber": 2,
@@ -9,23 +10,25 @@ Content-Type: application/json
   "nameRu": "RU"
 }
 ### Get all
-GET localhost:8080/article_types/all
-
+GET localhost:8080/types/admin/all
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
 
 ### Get all by lang
-GET localhost:8080/article_types/lang
+GET localhost:8080/types/lang
 Accept-Language: EN
 
 ### update
-PUT localhost:8080/article_types/update/1
+PUT localhost:8080/types/admin/update/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
 
 {
   "orderNumber": 2,
-  "nameUz": "Region1 uz",
-  "nameEn": "Region1 en",
-  "nameRu": "Region1 ru"
+  "nameUz": "type uz",
+  "nameEn": "type en",
+  "nameRu": "type ru"
 }
 
 ### delete by id
-DELETE localhost:8080/article_types/delete/1
+DELETE localhost:8080/types/admin/delete/1
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"

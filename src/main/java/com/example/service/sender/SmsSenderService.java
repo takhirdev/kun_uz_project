@@ -1,6 +1,7 @@
-package com.example.service;
+package com.example.service.sender;
 
 import com.example.dto.SmsHistoryDTO;
+import com.example.service.SmsHistoryService;
 import com.example.util.RandomUtil;
 import okhttp3.*;
 import org.json.JSONObject;

@@ -24,19 +24,15 @@ public class ProfileController {
     @Autowired
     private SecurityUtil securityUtil;
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO dto,
-                                             @RequestHeader("Authorization") String token) {
-        securityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+    @PostMapping(value = "/admin/create")
+    public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO dto) {
         ProfileDTO response = profileService.create(dto);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/admin/all")
     ResponseEntity<Page<ProfileDTO>> getAll(@RequestParam Integer pageNumber,
-                                            @RequestParam Integer pageSize,
-                                            @RequestHeader("Authorization") String token) {
-        securityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+                                            @RequestParam Integer pageSize) {
         Page<ProfileDTO> response = profileService.getAll(pageNumber - 1, pageSize);
         return ResponseEntity.ok(response);
 
@@ -51,24 +47,20 @@ public class ProfileController {
     }
 
 
-    @PutMapping(value = "/update/{id}")
+    @PutMapping(value = "/admin/update/{id}")
     public ResponseEntity<ProfileDTO> update(@PathVariable Integer id,
-                                             @RequestBody ProfileUpdateDTO profile,
-                                             @RequestHeader("Authorization") String token) {
-        securityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+                                             @RequestBody ProfileUpdateDTO profile) {
         ProfileDTO response = profileService.update(id, profile);
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable Integer id,
-                                          @RequestHeader("Authorization") String token) {
-        securityUtil.getJwtDTO(token, ProfileRole.ROLE_ADMIN);
+    @DeleteMapping(value = "/admin/delete/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer id) {
         Boolean response = profileService.delete(id);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(value = "/filter")
+    @PostMapping(value = "/admin/filter")
     ResponseEntity<Page<ProfileDTO>> filter(@RequestBody ProfileFilterDTO dto,
                                             @RequestParam Integer pageNumber,
                                             @RequestParam Integer pageSize) {

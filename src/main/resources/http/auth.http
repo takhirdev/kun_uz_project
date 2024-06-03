@@ -5,8 +5,8 @@ Content-Type: application/json
 {
   "name": "Takhir",
   "surname": "Ismailov",
-  "email": "mazgi@gmail.com",
-  "phone": "9989464686808",
+  "email": "mazgii@gmail.com",
+  "phone": "9989464686108",
   "password": "12345"
 }
 ### Registration with email
@@ -16,7 +16,7 @@ Content-Type: application/json
 {
   "name": "Takhir",
   "surname": "Ismailov",
-  "email": "takhir.ismailoff@gmail.com",
+  "email": "takhir.ismailoff1@gmail.com",
   "phone": "998946486808",
   "password": "12345"
 }
@@ -42,7 +42,7 @@ POST localhost:8080/auth/loginWithEmail
 Content-Type: application/json
 
 {
-  "email": "test4@gmail.com",
+  "email": "test1@gmail.com",
   "password": "211123"
 }
 

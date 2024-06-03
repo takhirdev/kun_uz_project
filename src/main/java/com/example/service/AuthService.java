@@ -3,7 +3,7 @@ package com.example.service;
 
 import com.example.dto.SmsHistoryDTO;
 import com.example.dto.auth.RegistrationDTO;
-import com.example.dto.profile.LoginDTO;
+import com.example.dto.auth.LoginDTO;
 import com.example.dto.profile.ProfileDTO;
 import com.example.entity.ProfileEntity;
 import com.example.entity.SmsHistoryEntity;
@@ -12,6 +12,8 @@ import com.example.enums.ProfileStatus;
 import com.example.exception.AppBadException;
 import com.example.repository.ProfileRepository;
 import com.example.repository.SmsHistoryRepository;
+import com.example.service.sender.EmailSenderService;
+import com.example.service.sender.SmsSenderService;
 import com.example.util.JwtUtil;
 import com.example.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,7 +160,7 @@ public class AuthService {
         response.setSurname(entity.getSurname());
         response.setPhone(entity.getPhone());
         response.setCreatedDate(entity.getCreatedDate());
-        response.setJwt(jwtUtil.generateToken(entity.getId(), entity.getName(), entity.getRole()));
+        response.setJwt(jwtUtil.generateToken(entity.getId(),entity.getEmail(), entity.getRole()));
         return response;
     }
 
@@ -179,7 +181,7 @@ public class AuthService {
         response.setSurname(entity.getSurname());
         response.setPhone(entity.getPhone());
         response.setCreatedDate(entity.getCreatedDate());
-        response.setJwt(jwtUtil.generateToken(entity.getId(), entity.getName(), entity.getRole()));
+        response.setJwt(jwtUtil.generateToken(entity.getId(),entity.getEmail(), entity.getRole()));
         return response;
     }
 }

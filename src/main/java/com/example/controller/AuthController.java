@@ -2,11 +2,12 @@ package com.example.controller;
 
 import com.example.dto.SmsHistoryDTO;
 import com.example.dto.auth.RegistrationDTO;
-import com.example.dto.profile.LoginDTO;
+import com.example.dto.auth.LoginDTO;
 import com.example.dto.profile.ProfileDTO;
 import com.example.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +18,14 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/registrationWithEmail")
-    public ResponseEntity<String> registrWithEmail(@Valid @RequestBody RegistrationDTO dto) {
-        String body = authService.registrWithEmail(dto);
-        return ResponseEntity.ok().body(body);
+    public ResponseEntity<HttpStatus> registrWithEmail(@Valid @RequestBody RegistrationDTO dto) {
+        authService.registrWithEmail(dto);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
     @PostMapping("/registrationWithPhone")
-    public ResponseEntity<String> registrWithPhone(@Valid @RequestBody RegistrationDTO dto) {
-        String body = authService.registrWithPhone(dto);
-        return ResponseEntity.ok().body(body);
+    public ResponseEntity<HttpStatus> registrWithPhone(@Valid @RequestBody RegistrationDTO dto) {
+        authService.registrWithPhone(dto);
+        return ResponseEntity.ok().body(HttpStatus.OK);
     }
 
     @GetMapping("/verificationWithEmail/{userId}")

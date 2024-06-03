@@ -32,7 +32,7 @@ public class SmsHistoryController {
         return ResponseEntity.ok(dtoList);
     }
 
-    @GetMapping("/pagination")
+    @GetMapping("/admin/pagination")
     public ResponseEntity<Page<SmsHistoryDTO>> pagination(@RequestParam Integer pageNumber,
                                                           @RequestParam Integer pageSize) {
         Page<SmsHistoryDTO> page = smsHistoryService.pagination(pageNumber - 1, pageSize);

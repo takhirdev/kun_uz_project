@@ -1,5 +1,6 @@
-package com.example.service;
+package com.example.service.sender;
 
+import com.example.service.EmailHistoryService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,24 +1,28 @@
 ### Create region
-POST localhost:8080/region/create
+POST localhost:8080/region/admin/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 
 {
-  "orderNumber": 3,
+  "orderNumber": 1,
   "nameUz": "Buxoro",
   "nameEn": "Bukhara",
   "nameRu": "Бухоро"
 }
 ### Get all
-GET localhost:8080/region/all
+GET localhost:8080/region/admin/all
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 
 
 ### Get all by lang
 GET localhost:8080/region/lang
 Accept-Language: UZ
 
+
 ### update
-PUT localhost:8080/region/update/3
+PUT localhost:8080/region/admin/update/3
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 
 {
   "orderNumber": 3,
@@ -28,4 +32,5 @@ Content-Type: application/json
 }
 
 ### delete by id
-DELETE localhost:8080/region/delete/3
+DELETE localhost:8080/region/admin/delete/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"

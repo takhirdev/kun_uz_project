@@ -1,4 +1,4 @@
-package com.example.article;
+package com.example.dto.article;
 
 import com.example.dto.category.CategoryDTO;
 import com.example.dto.region.RegionDTO;
@@ -20,9 +20,9 @@ public class ArticleUpdateDTO {
     @NonNull
     private Integer imageId;
     @NonNull
-    private Integer shared_count;
+    private Integer sharedCount;
     @Valid
-    private RegionDTO region;
+    private Integer regionID;
     @Valid
-    private CategoryDTO category;
+    private Integer categoryID;
 }

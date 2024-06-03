@@ -4,24 +4,25 @@ import com.example.enums.ArticleStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-
+import org.hibernate.annotations.UuidGenerator;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+
 @Getter
 @Setter
 @Entity
 @Table(name = "article")
 public class ArticleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @UuidGenerator
+    private String id;
+
     @Column(name = "title")
     private String title;
+
     @Column(name = "content")
     private String content;
+
     @Column(name = "description")
     private String description;
 
@@ -46,21 +47,24 @@ public class ArticleEntity {
     @JoinColumn(name = "publisher_id")
     private ProfileEntity publisher;
 
-    @OneToMany
-    @JoinColumn(name = "types")
-    private List<ArticleTypesEntity> types;
+    @ManyToMany
+    @JoinTable(name = "article_types",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "types_id"))
+    private List<TypesEntity> types;
 
     @Enumerated(EnumType.STRING)
     private ArticleStatus status;
 
     @Column(name = "created_date")
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "published_date")
     private LocalDateTime publishedDate;
+
     @Column(name = "visible")
     private Boolean visible = true;
+
     @Column(name = "views_count")
     private Integer viewsCount;
-
 }

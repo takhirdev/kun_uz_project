@@ -1,40 +1,40 @@
 package com.example.service;
 
-import com.example.dto.articleType.ArticleTypesCreateDTO;
-import com.example.dto.articleType.ArticleTypesDTO;
-import com.example.entity.ArticleTypesEntity;
+import com.example.dto.type.TypesCreateDTO;
+import com.example.dto.type.TypesDTO;
+import com.example.entity.TypesEntity;
 import com.example.enums.Language;
 import com.example.exception.AppBadException;
 import com.example.mapper.Mapper;
-import com.example.repository.ArticleTypeRepository;
+import com.example.repository.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class ArticleTypesService {
+public class TypesService {
     @Autowired
-    private ArticleTypeRepository articleTypeRepository;
+    private TypeRepository typeRepository;
 
-    public ArticleTypesDTO create(ArticleTypesCreateDTO dto) {
-        ArticleTypesEntity saved = articleTypeRepository.save(toEntity(dto));
+    public TypesDTO create(TypesCreateDTO dto) {
+        TypesEntity saved = typeRepository.save(toEntity(dto));
         return toDTO(saved);
     }
-    public List<ArticleTypesDTO> getAll() {
-        Iterable<ArticleTypesEntity> iterable = articleTypeRepository.findAll();
-        List<ArticleTypesDTO> dtoList = new LinkedList<>();
-        for (ArticleTypesEntity entity : iterable) {
+    public List<TypesDTO> getAll() {
+        Iterable<TypesEntity> iterable = typeRepository.findAll();
+        List<TypesDTO> dtoList = new LinkedList<>();
+        for (TypesEntity entity : iterable) {
             dtoList.add(toDTO(entity));
         }
         return dtoList;
     }
 
-    public List<ArticleTypesDTO> getAllByLang(Language lang) {
-        List<Mapper> mapperList = articleTypeRepository.findAllByLang(lang.name());
-        List<ArticleTypesDTO> dtoList = mapperList.stream()
+    public List<TypesDTO> getAllByLang(Language lang) {
+        List<Mapper> mapperList = typeRepository.findAllByLang(lang.name());
+        List<TypesDTO> dtoList = mapperList.stream()
                 .map(entity -> {
-                    ArticleTypesDTO dto = new ArticleTypesDTO();
+                    TypesDTO dto = new TypesDTO();
                     dto.setId(entity.getId());
                     dto.setName(entity.getName());
                     return dto;
@@ -43,8 +43,8 @@ public class ArticleTypesService {
         return dtoList;
     }
 
-    public ArticleTypesDTO update(Integer id, ArticleTypesCreateDTO dto) {
-        ArticleTypesEntity entity = get(id);
+    public TypesDTO update(Integer id, TypesCreateDTO dto) {
+        TypesEntity entity = get(id);
         if (dto.getOrderNumber()!=null){
             entity.setOrderNumber(dto.getOrderNumber());
         }
@@ -57,16 +57,16 @@ public class ArticleTypesService {
         if (dto.getNameEn()!=null){
             entity.setNameEn(dto.getNameEn());
         }
-        ArticleTypesEntity saved = articleTypeRepository.save(entity);
+        TypesEntity saved = typeRepository.save(entity);
         return toDTO(saved);
     }
     public Boolean delete(Integer id) {
-        ArticleTypesEntity entity = get(id);
-        articleTypeRepository.delete(entity);
+        TypesEntity entity = get(id);
+        typeRepository.delete(entity);
         return true;
     }
-    public ArticleTypesDTO toDTO(ArticleTypesEntity entity){
-        ArticleTypesDTO dto = new ArticleTypesDTO();
+    public TypesDTO toDTO(TypesEntity entity){
+        TypesDTO dto = new TypesDTO();
         dto.setId(entity.getId());
         dto.setNameUz(entity.getNameUz());
         dto.setNameEn(entity.getNameEn());
@@ -75,8 +75,8 @@ public class ArticleTypesService {
         dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }
-    public ArticleTypesEntity toEntity(ArticleTypesCreateDTO dto){
-        ArticleTypesEntity entity = new ArticleTypesEntity();
+    public TypesEntity toEntity(TypesCreateDTO dto){
+        TypesEntity entity = new TypesEntity();
         entity.setOrderNumber(dto.getOrderNumber());
         entity.setNameUz(dto.getNameUz());
         entity.setNameRu(dto.getNameRu());
@@ -84,7 +84,7 @@ public class ArticleTypesService {
         return entity;
     }
 
-    public ArticleTypesEntity get(Integer id) {
-        return articleTypeRepository.findById(id).orElseThrow(() -> new AppBadException("type not found"));
+    public TypesEntity get(Integer id) {
+        return typeRepository.findById(id).orElseThrow(() -> new AppBadException("type not found"));
     }
 }

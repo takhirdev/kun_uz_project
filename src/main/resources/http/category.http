@@ -1,31 +1,34 @@
 ### Create region
-POST localhost:8080/category/create
+POST localhost:8080/category/admin/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
 
 {
-  "orderNumber": 1,
+  "orderNumber": 32,
   "nameUz": "Toshkent",
-  "nameEn": "Tashkent",
-  "nameRu": "Бухоро"
+  "nameEn": "TashkentEn",
+  "nameRu": "TashkentRu"
 }
 ### Get all
-GET localhost:8080/category/all
-
+GET localhost:8080/category/admin/all
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
 
 ### Get all by lang
 GET localhost:8080/category/lang
 Accept-Language: UZ
 
 ### update
-PUT localhost:8080/category/update/3
+PUT localhost:8080/category/admin/update/22
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 
 {
-  "orderNumber": 1,
+  "orderNumber": 1110,
   "nameUz": "Region1 uz",
   "nameEn": "Region1 en",
   "nameRu": "Region1 ru"
 }
 
 ### delete by id
-DELETE localhost:8080/category/delete/3
+DELETE localhost:8080/category/admin/delete/22
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"

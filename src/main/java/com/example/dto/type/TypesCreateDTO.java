@@ -1,4 +1,4 @@
-package com.example.dto.articleType;
+package com.example.dto.type;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ArticleTypesCreateDTO {
+public class TypesCreateDTO {
     @NotNull(message = "Order number required")
     private Integer orderNumber;
     @NotBlank(message = "NameUz required")

@@ -1,11 +1,14 @@
 package com.example.handler;
 
+import com.example.exception.AppBadException;
+import com.example.exception.AppForbiddenException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -30,5 +33,15 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
         body.put("errors", errors);
         return new ResponseEntity<>(body, headers, status);
+    }
+
+    @ExceptionHandler(AppBadException.class)
+    public ResponseEntity<String> exp (AppBadException exception){
+        return ResponseEntity.ok(exception.getMessage());
+    }
+
+    @ExceptionHandler(AppForbiddenException.class)
+    public ResponseEntity<String> exp (AppForbiddenException exception){
+        return ResponseEntity.ok(exception.getMessage());
     }
 }

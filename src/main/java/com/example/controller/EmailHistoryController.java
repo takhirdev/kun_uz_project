@@ -26,7 +26,7 @@ public class EmailHistoryController {
         List<EmailHistoryDTO> dtoList = emailHistoryService.getAllByGivenDate(date);
         return ResponseEntity.ok(dtoList);
     }
-    @GetMapping("/pagination")
+    @GetMapping("/admin/pagination")
     public ResponseEntity<Page<EmailHistoryDTO>> pagination (@RequestParam Integer pageNumber,
                                                              @RequestParam Integer pageSize) {
         Page<EmailHistoryDTO> page = emailHistoryService.pagination(pageNumber-1, pageSize);

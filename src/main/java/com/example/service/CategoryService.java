@@ -9,6 +9,7 @@ import com.example.mapper.Mapper;
 import com.example.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CategoryService {
         CategoryEntity saved = categoryRepository.save(toEntity(dto));
         return toDTO(saved);
     }
+
     public List<CategoryDTO> getAll() {
         Iterable<CategoryEntity> iterable = categoryRepository.findAll();
         List<CategoryDTO> dtoList = new LinkedList<>();
@@ -45,27 +47,21 @@ public class CategoryService {
 
     public CategoryDTO update(Integer id, CategoryCreateDTO dto) {
         CategoryEntity entity = get(id);
-        if (dto.getOrderNumber()!=null){
-            entity.setOrderNumber(dto.getOrderNumber());
-        }
-        if (dto.getNameUz()!=null){
-            entity.setNameUz(dto.getNameUz());
-        }
-        if (dto.getNameRu()!=null){
-            entity.setNameRu(dto.getNameRu());
-        }
-        if (dto.getNameEn()!=null){
-            entity.setNameEn(dto.getNameEn());
-        }
+        entity.setOrderNumber(dto.getOrderNumber());
+        entity.setNameUz(dto.getNameUz());
+        entity.setNameRu(dto.getNameRu());
+        entity.setNameEn(dto.getNameEn());
         CategoryEntity saved = categoryRepository.save(entity);
         return toDTO(saved);
     }
+
     public Boolean delete(Integer id) {
         CategoryEntity entity = get(id);
         categoryRepository.delete(entity);
         return true;
     }
-    public CategoryDTO toDTO(CategoryEntity entity){
+
+    public CategoryDTO toDTO(CategoryEntity entity) {
         CategoryDTO dto = new CategoryDTO();
         dto.setId(entity.getId());
         dto.setNameUz(entity.getNameUz());
@@ -75,7 +71,8 @@ public class CategoryService {
         dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }
-    public CategoryEntity toEntity(CategoryCreateDTO dto){
+
+    public CategoryEntity toEntity(CategoryCreateDTO dto) {
         CategoryEntity entity = new CategoryEntity();
         entity.setOrderNumber(dto.getOrderNumber());
         entity.setNameUz(dto.getNameUz());

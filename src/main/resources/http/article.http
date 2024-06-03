@@ -1,0 +1,14 @@
+### create article
+POST http://localhost:8080/article/moderator/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0NDAxMjMsImlkIjozLCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX01PREVSQVRPUiIsImV4cCI6MTcxNzUyNjUyMywiaXNzIjoiS3VuVXoifQ.AeZG3UsrQFLyEwZmfZ1ZiFwCiZZm6bf95g8C5XyF8Vbe5Zxujf9ETarymUBMTFkK2cjeJIg5EVdMnksXS2Xt4A"
+
+{
+  "title": "title1",
+  "description": "description1",
+  "content": "content1",
+  "imageId": 11,
+  "regionID": 11,
+  "categoryId": 11,
+  "typeId": 1
+}

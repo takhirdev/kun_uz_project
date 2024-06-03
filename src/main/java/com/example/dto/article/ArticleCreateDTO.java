@@ -1,13 +1,10 @@
-package com.example.article;
+package com.example.dto.article;
 
-import com.example.dto.category.CategoryDTO;
-import com.example.dto.region.RegionDTO;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import java.util.List;
+
 @Getter
 @Setter
 public class ArticleCreateDTO {
@@ -19,10 +16,10 @@ public class ArticleCreateDTO {
     private String content;
     @NonNull
     private Integer imageId;
-    @Valid
-    private RegionDTO region;
-    @Valid
-    private CategoryDTO category;
-    @Valid
-    private List <@NotBlank String> articleTypes;
+    @NonNull
+    private Integer regionId;
+    @NonNull
+    private Integer categoryId;
+    @NonNull
+    private Integer typeId;
 }
