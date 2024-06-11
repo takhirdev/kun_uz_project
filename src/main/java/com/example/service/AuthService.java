@@ -44,7 +44,6 @@ public class AuthService {
         if (optional.isPresent()) {
             throw new AppBadException("Email already exists");
         }
-
         ProfileEntity entity = new ProfileEntity();
         entity.setName(dto.getName());
         entity.setSurname(dto.getSurname());

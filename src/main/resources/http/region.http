@@ -4,10 +4,10 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM0OTMsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUwOTg5MywiaXNzIjoiS3VuVXoifQ.8xkZlZpbEvvLTuI1ipbNc0yNJTdVqdORiKavPC6B-gqE2uldT0z7yZYxwKM9I1gSienyozQ1tvVvExusXe_nLQ"
 
 {
-  "orderNumber": 1,
-  "nameUz": "Buxoro",
-  "nameEn": "Bukhara",
-  "nameRu": "Бухоро"
+  "orderNumber": 2,
+  "nameUz": "Region1 uz",
+  "nameEn": "Region1 en",
+  "nameRu": "Region1 ru"
 }
 ### Get all
 GET localhost:8080/region/admin/all

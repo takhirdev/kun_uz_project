@@ -1,14 +1,21 @@
 ### create article
 POST http://localhost:8080/article/moderator/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0NDAxMjMsImlkIjozLCJ1c2VybmFtZSI6InRlc3QxQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX01PREVSQVRPUiIsImV4cCI6MTcxNzUyNjUyMywiaXNzIjoiS3VuVXoifQ.AeZG3UsrQFLyEwZmfZ1ZiFwCiZZm6bf95g8C5XyF8Vbe5Zxujf9ETarymUBMTFkK2cjeJIg5EVdMnksXS2Xt4A"
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0OTk5NTYsImlkIjoyLCJ1c2VybmFtZSI6InRha2hpci5pc21haWxvZmYxQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX01PREVSQVRPUiIsImV4cCI6MTcxNzU4NjM1NiwiaXNzIjoiS3VuVXoifQ.tdR1rI20Kh4a0_ex7k6uT4P7zDAeUiJBcwqdapJecQ17GtIv-tUpA6AuyNFxJxPd03ETEUbrbXrMcSlLmhYAlA"
 
 {
-  "title": "title1",
-  "description": "description1",
-  "content": "content1",
-  "imageId": 11,
-  "regionID": 11,
-  "categoryId": 11,
-  "typeId": 1
+  "title": "title",
+  "description": "description",
+  "content": "content",
+  "imageId": 1,
+  "regionId": 1,
+  "categoryId": 1,
+  "types": [
+    {
+      "id": 1
+    },
+    {
+      "id": 2
+    }
+  ]
 }

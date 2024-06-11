@@ -3,10 +3,10 @@ POST localhost:8080/auth/registrationWithPhone
 Content-Type: application/json
 
 {
-  "name": "Takhir",
-  "surname": "Ismailov",
-  "email": "mazgii@gmail.com",
-  "phone": "9989464686108",
+  "name": "Alish",
+  "surname": "aliyev",
+  "email": "takhir@gmail.com",
+  "phone": "998946386808",
   "password": "12345"
 }
 ### Registration with email
@@ -14,18 +14,18 @@ POST localhost:8080/auth/registrationWithEmail
 Content-Type: application/json
 
 {
-  "name": "Takhir",
-  "surname": "Ismailov",
-  "email": "takhir.ismailoff1@gmail.com",
-  "phone": "998946486808",
-  "password": "12345"
+  "name": "Vaali",
+  "surname": "Vaaliyev",
+  "email": "ismailoff@gmail.com",
+  "phone": "998946086828",
+  "password": "112345"
 }
 
 ### resend sms
 GET localhost:8080/auth/registration/resendSms/998946486808
 
 ### resend email
-GET localhost:8080/auth/registration/resend/takhir.ismailoff@gmail.com
+GET localhost:8080/auth/registration/resendEmail/takhir.ismailoff@gmail.com
 
 ### verification with phone
 POST localhost:8080/auth/verificationWithSms
@@ -42,8 +42,8 @@ POST localhost:8080/auth/loginWithEmail
 Content-Type: application/json
 
 {
-  "email": "test1@gmail.com",
-  "password": "211123"
+  "email": "takhir.ismailoff1@gmail.com",
+  "password": "12345"
 }
 
 ### login with phone

@@ -28,30 +28,37 @@ public class ArticleEntity {
 
     @Column(name = "shared_count")
     private Integer sharedCount;
+
     @Column(name = "image_id")
     private Integer imageId;
 
-    @ManyToOne
-    @JoinColumn(name = "region_id")
+    @Column(name = "region_id")
+    private Integer regionId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id", insertable = false, updatable = false)
     private RegionEntity region;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @Column(name = "category_id")
+    private Integer categoryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
 
-    @ManyToOne
-    @JoinColumn(name = "moderator_id")
+    @Column(name = "moderator_id")
+    private Integer moderatorId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "moderator_id", insertable = false, updatable = false)
     private ProfileEntity moderator;
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    private ProfileEntity publisher;
+    @Column(name = "publisher_id")
+    private Integer publisherId;
 
-    @ManyToMany
-    @JoinTable(name = "article_types",
-            joinColumns = @JoinColumn(name = "article_id"),
-            inverseJoinColumns = @JoinColumn(name = "types_id"))
-    private List<TypesEntity> types;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id", insertable = false, updatable = false)
+    private ProfileEntity publisher;
 
     @Enumerated(EnumType.STRING)
     private ArticleStatus status;

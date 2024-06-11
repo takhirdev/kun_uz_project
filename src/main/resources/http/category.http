@@ -1,13 +1,13 @@
 ### Create region
 POST localhost:8080/category/admin/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c2VybmFtZSI6Im1hemdpaUBnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsImV4cCI6MTcxNzUxMDE5MiwiaXNzIjoiS3VuVXoifQ.Lk4oN-1bxPyKsPQhRNmKPJXf0tSwUR-_d8ihOdGGCl71g0Zs_6O-KkJHtS5qtmP4WlNMmf6Wvw5oMukC7y8p_w"
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTgwMTQ0NjgsImlkIjoyLCJ1c2VybmFtZSI6InRha2hpci5pc21haWxvZmYxQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX01PREVSQVRPUiIsImV4cCI6MTcxODEwMDg2OCwiaXNzIjoiS3VuVXoifQ.y13A9aW66X0gRiQOWMeyUnQui2rzdoOfMq8Wrvi4Lz-k6uTwyILqRmb9ORuF1vtDAWszo3jY6Ek8ULobG88z1w"
 
 {
-  "orderNumber": 32,
-  "nameUz": "Toshkent",
-  "nameEn": "TashkentEn",
-  "nameRu": "TashkentRu"
+  "orderNumber": 1,
+  "nameUz": "categoryUZ",
+  "nameEn": "categoryEN",
+  "nameRu": "categoryRU"
 }
 ### Get all
 GET localhost:8080/category/admin/all

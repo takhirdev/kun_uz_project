@@ -18,48 +18,48 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/registrationWithEmail")
-    public ResponseEntity<HttpStatus> registrWithEmail(@Valid @RequestBody RegistrationDTO dto) {
-        authService.registrWithEmail(dto);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+    public ResponseEntity<String> registrWithEmail(@Valid @RequestBody RegistrationDTO dto) {
+        String response = authService.registrWithEmail(dto);
+        return ResponseEntity.ok(response);
     }
     @PostMapping("/registrationWithPhone")
-    public ResponseEntity<HttpStatus> registrWithPhone(@Valid @RequestBody RegistrationDTO dto) {
-        authService.registrWithPhone(dto);
-        return ResponseEntity.ok().body(HttpStatus.OK);
+    public ResponseEntity<String> registrWithPhone(@Valid @RequestBody RegistrationDTO dto) {
+        String response = authService.registrWithPhone(dto);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/verificationWithEmail/{userId}")
     public ResponseEntity<String> verifyWithEmail(@PathVariable Integer userId) {
-        String body = authService.verifyWithEmail(userId);
-        return ResponseEntity.ok().body(body);
+        String response = authService.verifyWithEmail(userId);
+        return ResponseEntity.ok(response);
     }
     @PostMapping("/verificationWithSms")
     public ResponseEntity<String> verifyWithSms(@RequestBody SmsHistoryDTO dto) {
-        String body = authService.verifyWithSms(dto);
-        return ResponseEntity.ok().body(body);
+        String response = authService.verifyWithSms(dto);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/registration/resendEmail/{email}")
     public ResponseEntity<String> resendEmail(@PathVariable String email) {
-        String body = authService.resendEmail(email);
-        return ResponseEntity.ok().body(body);
+        String response = authService.resendEmail(email);
+        return ResponseEntity.ok(response);
     }
     @GetMapping("/registration/resendSms/{phone}")
     public ResponseEntity<String> resendSms(@PathVariable String phone) {
-        String body = authService.resendSms(phone);
-        return ResponseEntity.ok().body(body);
+        String response = authService.resendSms(phone);
+        return ResponseEntity.ok(response);
     }
 
 
     @PostMapping("/loginWithEmail")
     public ResponseEntity<ProfileDTO> loginWithEmail(@Valid @RequestBody LoginDTO dto) {
         ProfileDTO response = authService.loginWithEmail(dto);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/loginWithPhone")
     public ResponseEntity<ProfileDTO> loginWithPhone(@Valid @RequestBody LoginDTO dto) {
         ProfileDTO response = authService.loginWithPhone(dto);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 }

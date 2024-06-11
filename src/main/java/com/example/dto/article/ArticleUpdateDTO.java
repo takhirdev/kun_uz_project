@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class ArticleUpdateDTO {
@@ -20,9 +22,9 @@ public class ArticleUpdateDTO {
     @NonNull
     private Integer imageId;
     @NonNull
-    private Integer sharedCount;
-    @Valid
-    private Integer regionID;
-    @Valid
-    private Integer categoryID;
+    private Integer regionId;
+    @NonNull
+    private Integer categoryId;
+    @NonNull
+    private List<Integer> types;
 }

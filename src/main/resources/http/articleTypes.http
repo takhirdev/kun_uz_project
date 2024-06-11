@@ -5,9 +5,9 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTc0MjM3OTIsImlkIjoxLCJ1c
 
 {
   "orderNumber": 2,
-  "nameUz": "UZ",
-  "nameEn": "EN",
-  "nameRu": "RU"
+  "nameUz": "type uz",
+  "nameEn": "type en",
+  "nameRu": "type ru"
 }
 ### Get all
 GET localhost:8080/types/admin/all
