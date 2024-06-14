@@ -1,5 +1,10 @@
 package com.example.dto.article;
 
+import com.example.dto.AttachDTO;
+import com.example.dto.category.CategoryDTO;
+import com.example.dto.profile.ProfileDTO;
+import com.example.dto.region.RegionDTO;
+import com.example.dto.type.TypesDTO;
 import com.example.entity.TypesEntity;
 import com.example.entity.CategoryEntity;
 import com.example.entity.ProfileEntity;
@@ -22,14 +27,16 @@ public class ArticleDTO {
     private String description;
     private Integer sharedCount;
     private Integer imageId;
-    private RegionEntity region;
-    private CategoryEntity category;
-    private ProfileEntity moderator;
-    private ProfileEntity publisher;
-    private List<TypesEntity> types;
+    private AttachDTO image;
+    private RegionDTO region;
+    private CategoryDTO category;
+    private ProfileDTO moderator;
+    private ProfileDTO publisher;
+    private List<TypesDTO> types;
     private ArticleStatus status;
     private LocalDateTime createdDate;
     private LocalDateTime publishedDate;
     private Boolean visible;
     private Integer viewsCount;
+    private Long likeCount;
 }

@@ -33,8 +33,8 @@ public class CategoryService {
     }
 
     public List<CategoryDTO> getAllByLang(Language lang) {
-        List<Mapper> mapperList = categoryRepository.findAllByLang(lang.name());
-        List<CategoryDTO> dtoList = mapperList.stream()
+        return categoryRepository.findAllByLang(lang.name())
+                .stream()
                 .map(entity -> {
                     CategoryDTO dto = new CategoryDTO();
                     dto.setId(entity.getId());
@@ -42,7 +42,6 @@ public class CategoryService {
                     return dto;
                 })
                 .toList();
-        return dtoList;
     }
 
     public CategoryDTO update(Integer id, CategoryCreateDTO dto) {
@@ -83,5 +82,17 @@ public class CategoryService {
 
     public CategoryEntity get(Integer id) {
         return categoryRepository.findById(id).orElseThrow(() -> new AppBadException("Category not found"));
+    }
+
+    public CategoryDTO getCategory(Integer id, Language lang) {
+        CategoryEntity category = get(id);
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(category.getId());
+        switch (lang) {
+            case UZ -> dto.setName(category.getNameUz());
+            case RU -> dto.setName(category.getNameRu());
+            default -> dto.setName(category.getNameEn());
+        }
+        return dto;
     }
 }

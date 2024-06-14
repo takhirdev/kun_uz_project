@@ -1,25 +1,23 @@
 package com.example.util;
 
-import com.example.dto.JwtDTO;
-import com.example.enums.ProfileRole;
-import com.example.exception.AppForbiddenException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.config.CustomUserDetail;
+import com.example.entity.ProfileEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SecurityUtil {
-    @Autowired
-    private JwtUtil jwtUtil;
 
-    public  JwtDTO getJwtDTO(String token) {
-        String jwt = token.substring(7); // Bearer eyJhb
-        return jwtUtil.decode(jwt);
+    public static Integer getProfileId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetail user = (CustomUserDetail) authentication.getPrincipal();
+        return user.getProfile().getId();
     }
-    public  JwtDTO getJwtDTO(String token, ProfileRole requiredRole) {
-        JwtDTO dto = getJwtDTO(token);
-        if(!dto.getRole().equals(requiredRole)){
-            throw new AppForbiddenException("Method not allowed");
-        }
-        return dto;
+
+    public static ProfileEntity getProfile() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetail user = (CustomUserDetail) authentication.getPrincipal();
+        return user.getProfile();
     }
 }

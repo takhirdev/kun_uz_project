@@ -32,8 +32,8 @@ public class RegionService {
     }
 
     public List<RegionDTO> getAllByLang(Language lang) {
-        List<Mapper> mapperList = regionRepository.findAllByLang(lang.name());
-        List<RegionDTO> dtoList = mapperList.stream()
+        return regionRepository.findAllByLang(lang.name())
+                .stream()
                 .map(entity -> {
                     RegionDTO dto = new RegionDTO();
                     dto.setId(entity.getId());
@@ -41,23 +41,14 @@ public class RegionService {
                     return dto;
                 })
                 .toList();
-        return dtoList;
     }
 
     public RegionDTO update(Integer id, RegionCreateDTO dto) {
         RegionEntity entity = get(id);
-        if (dto.getOrderNumber()!=null){
             entity.setOrderNumber(dto.getOrderNumber());
-        }
-        if (dto.getNameUz()!=null){
             entity.setNameUz(dto.getNameUz());
-        }
-        if (dto.getNameRu()!=null){
             entity.setNameRu(dto.getNameRu());
-        }
-        if (dto.getNameEn()!=null){
             entity.setNameEn(dto.getNameEn());
-        }
         RegionEntity saved = regionRepository.save(entity);
         return toDTO(saved);
     }
@@ -87,5 +78,17 @@ public class RegionService {
 
     public RegionEntity get(Integer id) {
         return regionRepository.findById(id).orElseThrow(() -> new AppBadException("Region not found"));
+    }
+
+    public RegionDTO getRegion(Integer id, Language lang) {
+        RegionEntity region = get(id);
+        RegionDTO dto = new RegionDTO();
+        dto.setId(region.getId());
+        switch (lang) {
+            case UZ -> dto.setName(region.getNameUz());
+            case RU -> dto.setName(region.getNameRu());
+            default -> dto.setName(region.getNameEn());
+        }
+        return dto;
     }
 }

@@ -20,6 +20,8 @@ public class ArticleUpdateDTO {
     @NotBlank
     private String content;
     @NonNull
+    private Integer sharedCount;
+    @NonNull
     private Integer imageId;
     @NonNull
     private Integer regionId;

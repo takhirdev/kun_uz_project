@@ -1,11 +1,12 @@
 package com.example.controller;
 
+import com.example.config.SecurityConfig;
 import com.example.dto.JwtDTO;
 import com.example.dto.profile.ProfileCreateDTO;
 import com.example.dto.profile.ProfileDTO;
 import com.example.dto.profile.ProfileFilterDTO;
 import com.example.dto.profile.ProfileUpdateDTO;
-import com.example.enums.ProfileRole;
+import com.example.entity.ProfileEntity;
 import com.example.service.ProfileService;
 import com.example.util.SecurityUtil;
 import jakarta.validation.Valid;
@@ -14,15 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @RestController
 @RequestMapping("profile")
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
-    @Autowired
-    private SecurityUtil securityUtil;
 
     @PostMapping(value = "/admin/create")
     public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO dto) {
@@ -39,10 +36,10 @@ public class ProfileController {
     }
 
     @PutMapping(value = "/update/current")   // update own details
-    public ResponseEntity<ProfileDTO> updateCurrent(@RequestBody ProfileUpdateDTO profile,
-                                                    @RequestHeader("Authorization") String token) {
-        JwtDTO dto = securityUtil.getJwtDTO(token);
-        ProfileDTO response = profileService.update(dto.getId(), profile);
+    public ResponseEntity<ProfileDTO> updateCurrent(@RequestBody ProfileUpdateDTO profile) {
+
+        Integer profileId  = SecurityUtil.getProfileId();
+        ProfileDTO response = profileService.update(profileId, profile);
         return ResponseEntity.ok(response);
     }
 

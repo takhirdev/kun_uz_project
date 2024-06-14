@@ -16,9 +16,7 @@ public class ArticleTypesService {
     private ArticleTypesRepository articleTypesRepository;
 
     public void create(String articleId, List<Integer> typesList) {
-        for (Integer typesId : typesList) {
-            create(articleId, typesId);
-        }
+        typesList.forEach(typesId -> create(articleId, typesId));
     }
 
     public void create(String articleId, Integer typesId) {

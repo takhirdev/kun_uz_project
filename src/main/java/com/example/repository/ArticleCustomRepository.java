@@ -2,12 +2,11 @@ package com.example.repository;
 
 import com.example.dto.FilterResponseDTO;
 import com.example.dto.article.ArticleFilterDTO;
-import com.example.entity.ArticleEntity;
+import com.example.mapper.ArticleShortInfoMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class ArticleCustomRepository {
     @Autowired
     private EntityManager entityManager;
 
-    public FilterResponseDTO<ArticleEntity> filter(ArticleFilterDTO dto, Integer pageNumber, Integer pageSize){
+    public FilterResponseDTO<ArticleShortInfoMapper> filter(ArticleFilterDTO dto, Integer pageNumber, Integer pageSize){
         StringBuilder query = new StringBuilder();
         Map<String,Object> params = new HashMap<>();
 
@@ -66,7 +65,8 @@ public class ArticleCustomRepository {
             params.put("status", dto.getStatus());
         }
 
-        StringBuilder selectSQL = new StringBuilder(" from ArticleEntity a where 1=1 ").append(query);
+        StringBuilder selectSQL = new StringBuilder(" SELECT a.id, a.title, a.description, a.image, a.publishedDate" +
+                                                    " from ArticleEntity a where 1=1 ").append(query);
         StringBuilder countSQL = new StringBuilder("select count(*) from ArticleEntity a where 1=1 ").append(query);
 
         Query selectQuery = entityManager.createQuery(selectSQL.toString());
@@ -80,9 +80,9 @@ public class ArticleCustomRepository {
         selectQuery.setFirstResult(pageNumber * pageSize);
         selectQuery.setMaxResults(pageSize);
 
-        List<ArticleEntity> list = selectQuery.getResultList();
+        List<ArticleShortInfoMapper> list = selectQuery.getResultList();
         Long totalCount = (Long) countQuery.getSingleResult();
 
-        return new FilterResponseDTO<ArticleEntity>(list, totalCount);
+        return new FilterResponseDTO<ArticleShortInfoMapper>(list, totalCount);
     }
 }
