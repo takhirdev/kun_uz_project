@@ -21,25 +21,4 @@ public interface ArticleTypesRepository extends CrudRepository<ArticleTypesEntit
     @Query("delete from ArticleTypesEntity  where articleId =?1 and typesId =?2")
     void deleteByArticleIdAndTypesId(String articleId, Integer typesId);
 
-
-    @Query(value = " SELECT a FROM ArticleTypesEntity AS at " +
-            " INNER JOIN at.article AS a" +
-            " WHERE at.typesId = :typeId " +
-            " AND a.status = 'PUBLISHED'" +
-            " AND a.visible = true" +
-            " ORDER BY a.createdDate ")
-    List<ArticleEntity> getLastNArticleByTypeId(@Param("typeId") Integer typeId,
-                                                Pageable pageable);
-
-
-    @Query(" SELECT a FROM ArticleTypesEntity as at " +
-            " INNER JOIN at.article as a" +
-            " WHERE at.typesId = : typeId" +
-            " AND a.id <> : articleId" +
-            " AND a.status = 'PUBLISHED'" +
-            " AND a.visible = true " +
-            " ORDER BY a.publishedDate")
-    List<ArticleEntity> getLastNArticleByTypeIdExceptArticleId(@Param("typeId") Integer typeId,
-                                                               @Param("articleId") Integer articleId,
-                                                               Pageable pageable);
 }
