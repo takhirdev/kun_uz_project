@@ -14,11 +14,11 @@ POST localhost:8080/auth/registrationWithEmail
 Content-Type: application/json
 
 {
-  "name": "Vaali",
-  "surname": "Vaaliyev",
-  "email": "ismailoff@gmail.com",
+  "name": "test",
+  "surname": "test",
+  "email": "test@gmail.com",
   "phone": "998946086828",
-  "password": "112345"
+  "password": "12345"
 }
 
 ### resend sms
@@ -42,7 +42,7 @@ POST localhost:8080/auth/loginWithEmail
 Content-Type: application/json
 
 {
-  "email": "takhir.ismailoff1@gmail.com",
+  "email": "mazgii@gmail.com",
   "password": "12345"
 }
 
@@ -51,6 +51,6 @@ POST localhost:8080/auth/loginWithPhone
 Content-Type: application/json
 
 {
-  "phone": "998946486808",
+  "phone": "998946086828",
   "password": "12345"
 }

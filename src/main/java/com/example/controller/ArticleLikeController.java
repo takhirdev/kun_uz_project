@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.dto.article.ArticleLikeDTO;
-import com.example.enums.Reaction;
 import com.example.service.ArticleLikeService;
 import com.example.util.SecurityUtil;
 import jakarta.validation.Valid;
@@ -24,5 +23,4 @@ public class ArticleLikeController {
         articleLikeService.reaction(profileId,dto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
 }

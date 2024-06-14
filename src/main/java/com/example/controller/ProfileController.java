@@ -13,13 +13,18 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("profile")
+@RequestMapping("/profile")
 public class ProfileController {
-    @Autowired
-    private ProfileService profileService;
+
+    private final ProfileService profileService;
+
+    public ProfileController(ProfileService profileService) {
+        this.profileService = profileService;
+    }
 
     @PostMapping(value = "/admin/create")
     public ResponseEntity<ProfileDTO> create(@Valid @RequestBody ProfileCreateDTO dto) {
@@ -42,7 +47,6 @@ public class ProfileController {
         ProfileDTO response = profileService.update(profileId, profile);
         return ResponseEntity.ok(response);
     }
-
 
     @PutMapping(value = "/admin/update/{id}")
     public ResponseEntity<ProfileDTO> update(@PathVariable Integer id,

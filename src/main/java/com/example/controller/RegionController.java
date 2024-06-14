@@ -7,14 +7,19 @@ import com.example.service.RegionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/region")
 public class RegionController {
-    @Autowired
-    private RegionService regionService;
+
+    private final RegionService regionService;
+
+    public RegionController(RegionService regionService) {
+        this.regionService = regionService;
+    }
 
     @PostMapping(value = "/admin/create")
     public ResponseEntity<RegionDTO> create(@Valid @RequestBody RegionCreateDTO region) {

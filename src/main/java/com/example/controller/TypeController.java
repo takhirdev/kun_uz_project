@@ -7,6 +7,7 @@ import com.example.service.TypesService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/types")
 public class TypeController {
-    @Autowired
-    private TypesService typesService;
+
+    private final TypesService typesService;
+
+    public TypeController(TypesService typesService) {
+        this.typesService = typesService;
+    }
 
     @PostMapping(value = "/admin/create")
     public ResponseEntity<TypesDTO> create(@Valid @RequestBody TypesCreateDTO dto) {

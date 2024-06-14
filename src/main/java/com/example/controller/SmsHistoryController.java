@@ -6,6 +6,7 @@ import com.example.service.SmsHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +18,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/sms")
 public class SmsHistoryController {
-    @Autowired
-    private SmsHistoryService smsHistoryService;
+
+    private final SmsHistoryService smsHistoryService;
+
+    public SmsHistoryController(SmsHistoryService smsHistoryService) {
+        this.smsHistoryService = smsHistoryService;
+    }
 
     @GetMapping("/byPhone")
     public ResponseEntity<List<SmsHistoryDTO>> getByPhone(@RequestParam String phone) {
