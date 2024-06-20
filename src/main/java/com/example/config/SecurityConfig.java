@@ -67,6 +67,7 @@ public class SecurityConfig {
                     .requestMatchers("/article/moderator/**").hasRole("MODERATOR")
                     .requestMatchers("/article/publisher/**").hasRole("PUBLISHER")
                     .requestMatchers("/article/all/**").permitAll()
+                    .requestMatchers("/attach/**").permitAll()
                     .requestMatchers("/reaction/*").hasAnyRole("ADMIN","USER","MODERATOR","PUBLISHER")
                     .anyRequest()
                     .authenticated();
