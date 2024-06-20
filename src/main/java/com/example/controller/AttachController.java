@@ -1,8 +1,10 @@
 package com.example.controller;
 
 import com.example.dto.AttachDTO;
+import com.example.dto.EmailHistoryDTO;
 import com.example.service.AttachService;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,10 +40,16 @@ public class AttachController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping( "/delete/{id}")
     public ResponseEntity<HttpStatus> delete (@PathVariable String id) {
         attachService.delete(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
+//////// pagination
+    @GetMapping("pagination")
+    public ResponseEntity<Page<AttachDTO>> pagination(@RequestParam int pageNumber,
+                                                      @RequestParam int pageSize) {
+        Page<AttachDTO> page = attachService.pagination(pageNumber-1,pageSize);
+        return ResponseEntity.ok(page);
+    }
 }

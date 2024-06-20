@@ -1,7 +1,7 @@
 ### create article
 POST http://localhost:8080/article/moderator/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTgzODI4MDIsImlkIjo3LCJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcxODQ2OTIwMiwiaXNzIjoiS3VuVXoifQ.VR1sMa0CX7uu1GULviqtc6rO02bL-KbUFVodLQP1NEnvtqSHjh9lLMOn048RJ3mtBHV2s5ulrftf6-qdrpXk4Q
+#Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTgzODI4MDIsImlkIjo3LCJ1c2VybmFtZSI6InRlc3RAZ21haWwuY29tIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcxODQ2OTIwMiwiaXNzIjoiS3VuVXoifQ.VR1sMa0CX7uu1GULviqtc6rO02bL-KbUFVodLQP1NEnvtqSHjh9lLMOn048RJ3mtBHV2s5ulrftf6-qdrpXk4Q
 
 {
   "title": "title",
@@ -10,12 +10,5 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MTgzODI4MDIsImlkIjo3LCJ1c
   "imageId": 1,
   "regionId": 1,
   "categoryId": 1,
-  "types": [
-    {
-      "id": 1
-    },
-    {
-      "id": 2
-    }
-  ]
+  "types": [1]
 }

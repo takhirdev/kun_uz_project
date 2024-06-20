@@ -4,6 +4,7 @@ import com.example.dto.article.ArticleLikeDTO;
 import com.example.entity.ArticleLikeEntity;
 import com.example.enums.Reaction;
 import com.example.repository.ArticleLikeRepository;
+import com.example.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,7 +17,8 @@ public class ArticleLikeService {
         this.articleLikeRepository = articleLikeRepository;
     }
 
-    public void reaction(Integer profileId, ArticleLikeDTO dto) {
+    public void reaction(ArticleLikeDTO dto) {
+        Integer profileId = SecurityUtil.getProfileId();
         Optional<ArticleLikeEntity> optional = articleLikeRepository.findByArticleIdAndProfileId(dto.getArticleId(), profileId);
 
         if (optional.isEmpty()) {

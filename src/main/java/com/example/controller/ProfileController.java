@@ -69,4 +69,11 @@ public class ProfileController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping(value = "/update/photo/{photoId}")
+    public ResponseEntity<Boolean> update(@PathVariable String photoId) {
+        Integer profileId  = SecurityUtil.getProfileId();
+        Boolean response = profileService.updatePhoto(profileId,photoId);
+        return ResponseEntity.ok(response);
+    }
+
 }

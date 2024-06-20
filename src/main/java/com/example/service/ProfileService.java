@@ -23,6 +23,8 @@ public class ProfileService {
     private ProfileRepository profileRepository;
     @Autowired
     private ProfileCustomRepository customRepository;
+    @Autowired
+    private AttachService attachService;
 
     public ProfileDTO create(ProfileCreateDTO dto) {
         ProfileEntity save = profileRepository.save(toEntity(dto));
@@ -61,8 +63,8 @@ public class ProfileService {
         return new PageImpl<>(dtoList,PageRequest.of(pageNumber,pageSize),totalCount);
     }
 
-    public ProfileEntity get(Integer id){
-        return profileRepository.findById(id).orElseThrow(()-> new AppBadException("profile not found"));
+    public ProfileEntity get(Integer profileId){
+        return profileRepository.findById(profileId).orElseThrow(()-> new AppBadException("profile not found"));
     }
 
     private ProfileEntity toEntity(ProfileCreateDTO dto) {
@@ -88,5 +90,15 @@ public class ProfileService {
         dto.setProfileStatus(entity.getStatus());
         dto.setCreatedDate(entity.getCreatedDate());
         return dto;
+    }
+
+    public Boolean updatePhoto(Integer profileId, String photoId) {
+        ProfileEntity profile = get(profileId);
+        String oldPhotoId = profile.getPhotoId();
+        profile.setPhotoId(photoId);
+        profileRepository.save(profile);
+        
+        attachService.delete(oldPhotoId);
+        return true;
     }
 }

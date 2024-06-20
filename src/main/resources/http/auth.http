@@ -51,6 +51,6 @@ POST localhost:8080/auth/loginWithPhone
 Content-Type: application/json
 
 {
-  "phone": "998946086828",
+  "phone": "998946386808",
   "password": "12345"
 }

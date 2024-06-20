@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ArticleEntity {
     private String description;
 
     @Column(name = "shared_count")
-    private Integer sharedCount;
+    private Integer sharedCount = 0;
 
     @Column(name = "image_id")
     private Integer imageId;
@@ -74,8 +75,17 @@ public class ArticleEntity {
     private Boolean visible = true;
 
     @Column(name = "views_count")
-    private Integer viewsCount;
+    private Integer viewsCount = 0;
+
+    @Column(name = "like_count")
+    private Integer likeCount = 0;
+
+    @Column(name = "dislike_count")
+    private Integer dislikeCount = 0;
 
     @OneToMany(mappedBy = "article")
     private List<ArticleTypesEntity> articleTypes;
+
+    @OneToMany(mappedBy = "article")
+    private List<ArticleTagEntity> articleTags;
 }

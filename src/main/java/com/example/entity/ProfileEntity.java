@@ -47,5 +47,5 @@ public class ProfileEntity {
     private LocalDateTime createdDate = LocalDateTime.now();
 
     @Column(name = "photo_id")
-    private Integer photoId;
+    private String photoId;
 }

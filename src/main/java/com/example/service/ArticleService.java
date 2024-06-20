@@ -87,7 +87,7 @@ public class ArticleService {
         return iterateStream(articleRepository.getLast8(idList));
     }
 
-    public List<ArticleDTO> last4ExcludingId(Integer typeId, Integer articleId) {
+    public List<ArticleDTO> last4ExcludingId(Integer typeId, String articleId) {
         return iterateStream(articleRepository.getLast4ArticlesByTypeExcludingId(typeId, articleId));
     }
 
@@ -99,18 +99,22 @@ public class ArticleService {
         return iterateStream(articleRepository.get5ArticleByTypeIdAndRegionId(typeId, regionId));
     }
 
-    public List<ArticleDTO> paginationByRegion(Integer regionId, Integer pageNumber, Integer pageSize) {
+    public  Page<ArticleShortInfoMapper> paginationByRegion(Integer regionId, Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return iterateStream( articleRepository.paginationByRegion(regionId,pageable));
+        Page<ArticleShortInfoMapper> pagination = articleRepository.paginationByRegion(regionId, pageable);
+        List<ArticleShortInfoMapper> contentList = pagination.getContent();
+        long totalElements = pagination.getTotalElements();
+        return new PageImpl<>(contentList,pageable,totalElements);
     }
 
     public List<ArticleDTO> last5ByCategoryId(Integer categoryId) {
-       return iterateStream(articleRepository.get5ArticleByCategoryId(categoryId));
+        return iterateStream(articleRepository.get5ArticleByCategoryId(categoryId));
     }
 
-    public List<ArticleDTO> paginationByCategory(Integer categoryId,Integer pageNumber, Integer pageSize) {
+    public Page<ArticleShortInfoMapper> paginationByCategory(Integer categoryId, Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return iterateStream(articleRepository.paginationByCategory(categoryId,pageable));
+        Page<ArticleShortInfoMapper> pagination = articleRepository.paginationByCategory(categoryId, pageable);
+        return new PageImpl<>(pagination.getContent(),pageable,pagination.getTotalElements());
     }
 
     public void increaseViewCount(String articleId) {   //   viewcount/{articleId}
@@ -128,7 +132,7 @@ public class ArticleService {
 
         Long totalCount = filterResponse.getTotalCount();
 
-        return new PageImpl<>(list, PageRequest.of(pageNumber,pageSize), totalCount);
+        return new PageImpl<>(list, PageRequest.of(pageNumber, pageSize), totalCount);
     }
 
     public ArticleDTO getById(String articleId, Language language) {
@@ -136,7 +140,7 @@ public class ArticleService {
         if (!entity.getStatus().equals(ArticleStatus.PUBLISHED)) {
             throw new AppBadException("Article not found");
         }
-        return toDTOFullInfo(entity,language);
+        return toDTOFullInfo(entity, language);
     }
 
     public ArticleEntity getById(String articleId) {
@@ -172,7 +176,7 @@ public class ArticleService {
         return articleEntity;
     }
 
-    public ArticleDTO toDTOFullInfo(ArticleEntity entity,Language language) {
+    public ArticleDTO toDTOFullInfo(ArticleEntity entity, Language language) {
         ArticleDTO dto = new ArticleDTO();
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
@@ -186,5 +190,9 @@ public class ArticleService {
 //        dto.setLikeCount(articleLikeRepository.getArticleLikeCount(id)); // TODO
 //         tagList(name)
         return dto;
+    }
+
+    public List<ArticleDTO> getLast4ByTagName(String tagName) {
+        return iterateStream(articleRepository.getLast4ArticleByTagName(tagName));
     }
 }

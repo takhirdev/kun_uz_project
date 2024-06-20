@@ -18,9 +18,8 @@ public class ArticleLikeController {
     }
 
     @PostMapping("/like&dislike")
-    public ResponseEntity reaction (@Valid @RequestBody ArticleLikeDTO dto) {
-        Integer profileId = SecurityUtil.getProfileId();
-        articleLikeService.reaction(profileId,dto);
+    public ResponseEntity reaction (@RequestBody ArticleLikeDTO dto) {
+        articleLikeService.reaction(dto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

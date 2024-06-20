@@ -3,13 +3,13 @@ package com.example.repository;
 import com.example.entity.ArticleEntity;
 import com.example.mapper.ArticleShortInfoMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
             " AND a.visible = TRUE " +
             " ORDER BY a.publishedDate " +
             " LIMIT 4 ")
-    List<ArticleShortInfoMapper> getLast4ArticlesByTypeExcludingId(Integer typeId, Integer articleId);
+    List<ArticleShortInfoMapper> getLast4ArticlesByTypeExcludingId(Integer typeId, String articleId);
 
     @Query( " SELECT a.id, a.title, a.description, a.image, a.publishedDate" +
             " FROM ArticleEntity AS a " +
@@ -71,7 +71,7 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
             " AND a.visible = TRUE " +
             " ORDER BY a.createdDate DESC "
             )
-    List<ArticleShortInfoMapper> paginationByRegion(Integer regionId, Pageable pageable);
+    Page<ArticleShortInfoMapper> paginationByRegion(Integer regionId, Pageable pageable);
 
     @Query( " SELECT a.id, a.title, a.description, a.image, a.publishedDate " +
             " FROM ArticleEntity AS a " +
@@ -89,7 +89,7 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
             " AND a.visible = TRUE " +
             " ORDER BY a.createdDate DESC "
     )
-    List<ArticleShortInfoMapper> paginationByCategory(Integer categoryId, Pageable pageable);
+    Page<ArticleShortInfoMapper> paginationByCategory(Integer categoryId, Pageable pageable);
 
     @Transactional
     @Modifying
@@ -100,5 +100,13 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
     @Modifying
     @Query("UPDATE ArticleEntity set sharedCount = COALESCE(sharedCount,0) + 1 where id =?1")
     void increaseShareCount(String articleId);
+
+    @Query( " SELECT a.id, a.title, a.description, a.image, a.publishedDate " +
+            " FROM ArticleEntity AS a" +
+            " INNER JOIN a.articleTags AS at" +
+            " WHERE at.tag.name = ?1 " +
+            " ORDER BY a.createdDate DESC " +
+            " LIMIT 4 ")
+    List<ArticleShortInfoMapper> getLast4ArticleByTagName(String tagName);
 }
 

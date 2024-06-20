@@ -5,6 +5,7 @@ import com.example.dto.article.ArticleDTO;
 import com.example.dto.article.ArticleFilterDTO;
 import com.example.dto.article.ArticleUpdateDTO;
 import com.example.enums.Language;
+import com.example.mapper.ArticleShortInfoMapper;
 import com.example.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -76,7 +77,7 @@ public class ArticleController {
 
     @GetMapping("/all/last4ExcludingId")
     public ResponseEntity<List<ArticleDTO>> last4ExcludingId(@RequestParam Integer typeId,
-                                                             @RequestParam Integer articleId) {
+                                                             @RequestParam String articleId) {
         List<ArticleDTO> dtoList = articleService.last4ExcludingId(typeId, articleId);
         return ResponseEntity.ok(dtoList);
     }
@@ -95,11 +96,11 @@ public class ArticleController {
     }
 
     @GetMapping("/all/paginationByRegion/{regionId}")
-    public ResponseEntity<List<ArticleDTO>> paginationByRegion(@PathVariable Integer regionId,
+    public ResponseEntity<Page<ArticleShortInfoMapper>> paginationByRegion(@PathVariable Integer regionId,
                                                                @RequestParam Integer pageNumber,
                                                                @RequestParam Integer pageSize) {
-        List<ArticleDTO> dtoList = articleService.paginationByRegion(regionId, pageNumber - 1, pageSize);
-        return ResponseEntity.ok(dtoList);
+        Page<ArticleShortInfoMapper> response = articleService.paginationByRegion(regionId, pageNumber - 1, pageSize);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/all/last5ByCategory/{categoryId}")
@@ -109,11 +110,11 @@ public class ArticleController {
     }
 
     @GetMapping("/all/paginationByCategory/{categoryId}")
-    public ResponseEntity<List<ArticleDTO>> paginationByCategory(@PathVariable Integer categoryId,
+    public ResponseEntity<Page<ArticleShortInfoMapper>> paginationByCategory(@PathVariable Integer categoryId,
                                                                  @RequestParam Integer pageNumber,
                                                                  @RequestParam Integer pageSize) {
-        List<ArticleDTO> dtoList = articleService.paginationByCategory(categoryId, pageNumber - 1, pageSize);
-        return ResponseEntity.ok(dtoList);
+        Page<ArticleShortInfoMapper> response = articleService.paginationByCategory(categoryId, pageNumber - 1, pageSize);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/viewCountIncrease/{articleId}")
@@ -126,11 +127,17 @@ public class ArticleController {
         articleService.increaseShareCount(articleId);
     }
 
-    @GetMapping("/all/filter")
+    @PostMapping("/all/filter")
     ResponseEntity<Page<ArticleDTO>> filter(@RequestBody ArticleFilterDTO dto,
                                             @RequestParam Integer pageNumber,
                                             @RequestParam Integer pageSize) {
         Page<ArticleDTO> response = articleService.filter(dto, pageNumber - 1, pageSize);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/last4ByTagName")
+    ResponseEntity<List<ArticleDTO>> getLast4ByTagName(@RequestParam String tagName) {
+       List<ArticleDTO> response = articleService.getLast4ByTagName(tagName);
+       return ResponseEntity.ok(response);
     }
 }

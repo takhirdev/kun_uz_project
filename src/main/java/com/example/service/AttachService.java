@@ -1,12 +1,15 @@
 package com.example.service;
 
 import com.example.dto.AttachDTO;
+import com.example.dto.EmailHistoryDTO;
 import com.example.entity.AttachEntity;
+import com.example.entity.EmailHistoryEntity;
 import com.example.exception.AppBadException;
 import com.example.repository.AttachRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -132,5 +136,18 @@ public class AttachService {
         dto.setPath(entity.getPath());
         dto.setUrl(serverUrl + "/" + entity.getId());
         return dto;
+    }
+
+    public Page<AttachDTO> pagination(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("createdDate").descending());
+        Page<AttachEntity> entityPage = attachRepository.findAll(pageable);
+
+        List<AttachDTO> dtoList = entityPage.getContent().stream()
+                .map(this::toDTO)
+                .toList();
+
+        long totalElements = entityPage.getTotalElements();
+
+        return new PageImpl<AttachDTO>(dtoList, pageable, totalElements);
     }
 }
