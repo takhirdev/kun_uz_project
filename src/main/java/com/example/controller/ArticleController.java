@@ -116,6 +116,16 @@ public class ArticleController {
         return ResponseEntity.ok(dtoList);
     }
 
+    @GetMapping("/viewCountIncrease/{articleId}")
+    void increaseViewCount(@PathVariable String articleId) {
+        articleService.increaseViewCount(articleId);
+    }
+
+    @GetMapping("/shareCountIncrease/{articleId}")
+    void increaseShareCount(@PathVariable String articleId) {
+        articleService.increaseShareCount(articleId);
+    }
+
     @GetMapping("/all/filter")
     ResponseEntity<Page<ArticleDTO>> filter(@RequestBody ArticleFilterDTO dto,
                                             @RequestParam Integer pageNumber,

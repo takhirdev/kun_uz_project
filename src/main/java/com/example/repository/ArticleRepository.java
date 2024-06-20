@@ -2,7 +2,9 @@ package com.example.repository;
 
 import com.example.entity.ArticleEntity;
 import com.example.mapper.ArticleShortInfoMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -88,5 +90,15 @@ public interface ArticleRepository extends CrudRepository<ArticleEntity, String>
             " ORDER BY a.createdDate DESC "
     )
     List<ArticleShortInfoMapper> paginationByCategory(Integer categoryId, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE ArticleEntity set viewsCount = COALESCE(viewsCount,0) + 1 where id =?1")
+    void increaseViewCount(String articleId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE ArticleEntity set sharedCount = COALESCE(sharedCount,0) + 1 where id =?1")
+    void increaseShareCount(String articleId);
 }
 
