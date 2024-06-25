@@ -53,34 +53,21 @@ public class CommentService {
         return toDTO(commentEntity);
     }
 
-    public Boolean delete(String commentId) {
+    public void delete(String commentId) {
         CommentEntity entity = getById(commentId);
         ProfileEntity profile = SecurityUtil.getProfile();
 
-        if (profile.getRole().equals(ProfileRole.ROLE_ADMIN)) {
-            return deleteAsAdmin(commentId);
+        if (profile.getRole().equals(ProfileRole.ROLE_ADMIN)
+                || profile.getId() == entity.getProfileId()) {
+            commentRepository.delete(entity);
         } else {
-            return deleteAsUser(commentId, entity);
+            throw new AppBadException("You can only delete your comment");
         }
     }
 
     public List<CommentDTO> getAllByArticleId(String articleId) {
         return commentRepository.findByArticleIdAndVisibleTrue(articleId).stream()
-                .map(entity -> {
-                    CommentDTO dto = new CommentDTO();
-                    dto.setId(entity.getId());
-                    dto.setContent(entity.getContent());
-                    dto.setCreatedDate(entity.getCreatedDate());
-                    dto.setUpdateDate(entity.getUpdateDate());
-
-                    // create profile
-                    ProfileDTO profile = new ProfileDTO();
-                    profile.setId(entity.getProfileId());
-                    profile.setName(entity.getProfile().getName());
-                    profile.setSurname(entity.getProfile().getSurname());
-                    dto.setProfile(profile);
-                    return dto;
-                })
+                .map(this::toDtoDetail)
                 .toList();
     }
 
@@ -90,8 +77,28 @@ public class CommentService {
 
         List<CommentDTO> comments = commentEntityPage.getContent()
                 .stream()
-                .map(this::toDTO)
-                .toList();
+                .map(entity -> {
+                    CommentDTO dto = new CommentDTO();
+                    dto.setId(entity.getId());
+                    dto.setCreatedDate(entity.getCreatedDate());
+                    dto.setUpdateDate(entity.getUpdateDate());
+                    dto.setContent(entity.getContent());
+                    dto.setReplyId(entity.getReplyId());
+
+                    // create profile
+                    ProfileDTO profileDTO = new ProfileDTO();
+                    profileDTO.setId(entity.getProfileId());
+                    profileDTO.setName(entity.getProfile().getName());
+                    profileDTO.setSurname(entity.getProfile().getSurname());
+                    dto.setProfile(profileDTO);
+
+                    // create article
+                    ArticleDTO article = new ArticleDTO();
+                    article.setId(entity.getArticleId());
+                    article.setTitle(entity.getArticle().getTitle());
+                    dto.setArticle(article);
+                    return dto;
+                }).toList();
 
         Long total = commentEntityPage.getTotalElements();
 
@@ -102,51 +109,13 @@ public class CommentService {
         FilterResponseDTO<CommentEntity> filter = commentCustomRepository.filter(filterDTO, page, size);
         List<CommentDTO> dtoList = filter.getContent()
                 .stream()
-                .map(entity -> {
-                    CommentDTO dto = new CommentDTO();
-                    dto.setId(entity.getId());
-                    dto.setCreatedDate(entity.getCreatedDate());
-                    dto.setUpdateDate(entity.getUpdateDate());
-                    dto.setContent(entity.getContent());
-                    dto.setReplyId(entity.getReplyId());
-                    dto.setVisible(entity.getVisible());
-
-                    // create profile
-                    ProfileDTO profileDTO = new ProfileDTO();
-                    profileDTO.setId(entity.getProfileId());
-                    dto.setProfile(profileDTO);
-
-                    // create article
-                    ArticleDTO articleDTO = new ArticleDTO();
-                    articleDTO.setId(entity.getArticleId());
-                    dto.setArticle(articleDTO);
-                    return dto;
-                }).toList();
+                .map(this::toDTO).toList();
         return new PageImpl<>(dtoList, PageRequest.of(page, size), filter.getTotalCount());
     }
 
     public List<CommentDTO> getAllByReplyId(String commentId) {
         return commentRepository.findAllByReplyIdAndVisibleTrue(commentId).stream()
-                .map(entity -> {
-                    CommentDTO dto = new CommentDTO();
-                    dto.setId(entity.getId());
-                    dto.setCreatedDate(entity.getCreatedDate());
-                    dto.setUpdateDate(entity.getUpdateDate());
-                    dto.setContent(entity.getContent());
-                    dto.setReplyId(entity.getReplyId());
-                    dto.setVisible(entity.getVisible());
-
-                    // create profile
-                    ProfileDTO profileDTO = new ProfileDTO();
-                    profileDTO.setId(entity.getProfileId());
-                    dto.setProfile(profileDTO);
-
-                    // create article
-                    ArticleDTO articleDTO = new ArticleDTO();
-                    articleDTO.setId(entity.getArticleId());
-                    dto.setArticle(articleDTO);
-                    return dto;
-                })
+                .map(this::toDtoDetail)
                 .toList();
     }
 
@@ -164,24 +133,29 @@ public class CommentService {
 
     private CommentDTO toDTO(CommentEntity entity) {
         CommentDTO dto = new CommentDTO();
+        dto.setId(entity.getId());
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setUpdateDate(entity.getUpdateDate());
+        dto.setProfileId(entity.getProfileId());
         dto.setContent(entity.getContent());
         dto.setArticleId(entity.getArticleId());
         dto.setReplyId(entity.getReplyId());
-        dto.setProfileId(entity.getProfileId());
-        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setVisible(entity.getVisible());
         return dto;
     }
 
-    private Boolean deleteAsAdmin(String commentId) {
-        commentRepository.deleteById(commentId);
-        return true;
-    }
+    private CommentDTO toDtoDetail(CommentEntity entity) {
+        CommentDTO dto = new CommentDTO();
+        dto.setId(entity.getId());
+        dto.setCreatedDate(entity.getCreatedDate());
+        dto.setUpdateDate(entity.getUpdateDate());
 
-    private Boolean deleteAsUser(String commentId, CommentEntity entity) {
-        if (!SecurityUtil.getProfileId().equals(entity.getProfileId())) {
-            throw new AppBadException("You can only delete your comment");
-        }
-        commentRepository.deleteById(commentId);
-        return true;
+        // create profile
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setId(entity.getProfileId());
+        profileDTO.setName(entity.getProfile().getName());
+        profileDTO.setSurname(entity.getProfile().getSurname());
+        dto.setProfile(profileDTO);
+        return dto;
     }
 }
