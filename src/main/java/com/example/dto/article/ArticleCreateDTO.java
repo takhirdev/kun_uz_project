@@ -1,13 +1,10 @@
 package com.example.dto.article;
 
-import com.example.dto.type.TypesDTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.apache.catalina.LifecycleState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,5 +23,7 @@ public class ArticleCreateDTO {
     @NonNull
     private Integer categoryId;
     @NonNull
-    private List<Integer> types;
+    private List<Integer> typeList;
+    @NonNull
+    private List<String> tagList;
 }

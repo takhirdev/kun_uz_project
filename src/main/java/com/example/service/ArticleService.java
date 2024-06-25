@@ -12,6 +12,7 @@ import com.example.exception.AppBadException;
 import com.example.mapper.ArticleShortInfoMapper;
 import com.example.repository.ArticleCustomRepository;
 import com.example.repository.ArticleRepository;
+import com.example.util.SecurityUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,21 +30,24 @@ public class ArticleService {
     private final CategoryService categoryService;
     private final ArticleCustomRepository articleCustomRepository;
     private final AttachService attachService;
+    private final ArticleTagService articleTagService;
 
     public ArticleService(ArticleRepository articleRepository,
-                          ArticleTypesService articleTypesService, RegionService regionService, CategoryService categoryService, ArticleCustomRepository articleCustomRepository, AttachService attachService) {
+                          ArticleTypesService articleTypesService, RegionService regionService, CategoryService categoryService, ArticleCustomRepository articleCustomRepository, AttachService attachService, ArticleTagService articleTagService) {
         this.articleRepository = articleRepository;
         this.articleTypesService = articleTypesService;
         this.regionService = regionService;
         this.categoryService = categoryService;
         this.articleCustomRepository = articleCustomRepository;
         this.attachService = attachService;
+        this.articleTagService = articleTagService;
     }
 
     public void create(ArticleCreateDTO dto) {
         ArticleEntity entity = toEntity(dto);
         articleRepository.save(entity);
-        articleTypesService.create(entity.getId(), dto.getTypes());
+        articleTypesService.create(entity.getId(), dto.getTypeList());
+        articleTagService.create(entity.getId(), dto.getTagList());
     }
 
     public void update(String articleId, ArticleUpdateDTO dto) {
@@ -56,6 +60,7 @@ public class ArticleService {
         entity.setCategoryId(dto.getCategoryId());
         articleRepository.save(entity);
         articleTypesService.merge(articleId, dto.getTypes());
+        articleTagService.merge(entity.getId(), dto.getTagList());
 
     }
 
@@ -171,6 +176,7 @@ public class ArticleService {
         articleEntity.setContent(dto.getContent());
         articleEntity.setImageId(dto.getImageId());
         articleEntity.setRegionId(dto.getRegionId());
+        articleEntity.setModeratorId(SecurityUtil.getProfileId());
         articleEntity.setCategoryId(dto.getCategoryId());
         articleEntity.setStatus(ArticleStatus.NOT_PUBLISHED);
         return articleEntity;

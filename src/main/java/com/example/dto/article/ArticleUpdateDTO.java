@@ -29,4 +29,6 @@ public class ArticleUpdateDTO {
     private Integer categoryId;
     @NonNull
     private List<Integer> types;
+    @NonNull
+    private List<String> tagList;
 }
