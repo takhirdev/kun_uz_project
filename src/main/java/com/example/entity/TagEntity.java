@@ -3,6 +3,7 @@ package com.example.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 @Getter
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "tag")
 public class TagEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @UuidGenerator
     private String id;
     @Column(name = "name")
     private String name;

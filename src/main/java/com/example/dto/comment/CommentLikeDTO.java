@@ -1,6 +1,5 @@
 package com.example.dto.comment;
-
-import com.example.enums.LikeStatus;
+import com.example.enums.Reaction;
 import io.micrometer.common.lang.NonNull;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -12,5 +11,5 @@ public class CommentLikeDTO {
     @NonNull
     private String commentId;
     @NotBlank
-    private LikeStatus reaction;
+    private Reaction reaction;
 }
