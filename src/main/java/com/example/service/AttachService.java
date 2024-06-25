@@ -1,9 +1,7 @@
 package com.example.service;
 
 import com.example.dto.AttachDTO;
-import com.example.dto.EmailHistoryDTO;
 import com.example.entity.AttachEntity;
-import com.example.entity.EmailHistoryEntity;
 import com.example.exception.AppBadException;
 import com.example.repository.AttachRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +29,7 @@ public class AttachService {
     private String serverUrl;
 
     @Value("${upload.path}")
-    private String uploadPath;
+    private String uploadFolder;
 
     public AttachService(AttachRepository attachRepository) {
         this.attachRepository = attachRepository;
@@ -41,9 +39,9 @@ public class AttachService {
     public AttachDTO upload(MultipartFile file) {
         String key = UUID.randomUUID().toString();                     // safsfsf-sfwf-11sdd-wef1
         String extension = getExtension(file.getOriginalFilename());   // png/mp3/doc
-        String pathFolder = getYMDString();   // 2024/6/11
+        String pathFolder = getYMDString();                            // 2024/6/11
         try {
-            File folder = new File(uploadPath + "/" + pathFolder, key + "." + extension); //"C:/Users/takhi/OneDrive/Desktop/uploadFolder"/2024/6/20
+            File folder = new File(uploadFolder + "/" + pathFolder, key + "." + extension); //"C:/Users/takhi/OneDrive/Desktop/uploadFolder"/2024/6/20
             if (!folder.exists()) {
                 folder.mkdirs();
             }
@@ -68,7 +66,7 @@ public class AttachService {
         try {
             AttachEntity entity = get(attachId);
             String path = entity.getPath() + "/" + attachId; // 2024/06/11/asd-ewaz-1qws-ascd.png
-            Path file = Paths.get(uploadPath + "/" + path);   // C:/Users/takhi/OneDrive/Desktop/uploadFolder/2024/06/11/asd-fdsa-sdf-sdc.png
+            Path file = Paths.get(uploadFolder + "/" + path);   // C:/Users/takhi/OneDrive/Desktop/uploadFolder/2024/06/11/asd-fdsa-sdf-sdc.png
             data = Files.readAllBytes(file);
             return data;
         } catch (IOException e) {
@@ -81,7 +79,7 @@ public class AttachService {
         try {
             AttachEntity entity = get(attachId);
             String path = entity.getPath() + "/" + attachId;
-            Path file = Paths.get(uploadPath + "/" + path);
+            Path file = Paths.get(uploadFolder + "/" + path);
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
@@ -96,7 +94,7 @@ public class AttachService {
 
     public void delete(String attachId) {
         AttachEntity entity = get(attachId);
-        File file = new File(uploadPath + "/" + entity.getPath() + "/" + attachId);
+        File file = new File(uploadFolder + "/" + entity.getPath() + "/" + attachId);
         if (!file.delete()) {
             throw new AppBadException("file not deleted");
         } else {
@@ -105,9 +103,11 @@ public class AttachService {
     }
 
     public AttachDTO getDTOWithURL(String attachId) {
+        AttachEntity attach = attachRepository.findById(attachId)
+                .orElseThrow(() -> new AppBadException("Attach not found"));
         AttachDTO dto = new AttachDTO();
         dto.setId(attachId);
-        dto.setUrl(serverUrl + uploadPath +  attachId); /////
+        dto.setUrl(serverUrl + "/" + uploadFolder + "/" + attach.getPath() + "/" + attachId);
         return dto;
     }
 
