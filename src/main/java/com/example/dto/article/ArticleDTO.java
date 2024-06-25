@@ -28,6 +28,7 @@ public class ArticleDTO {
     private Integer sharedCount;
     private Integer imageId;
     private AttachDTO image;
+    private List<AttachDTO> imageList;
     private RegionDTO region;
     private CategoryDTO category;
     private ProfileDTO moderator;

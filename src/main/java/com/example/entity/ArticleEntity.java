@@ -32,7 +32,7 @@ public class ArticleEntity {
     private Integer sharedCount = 0;
 
     @Column(name = "image_id")
-    private Integer imageId;
+    private String imageId;
 
     @OneToMany()
     @JoinColumn(name = "image_id", insertable = false, updatable = false)

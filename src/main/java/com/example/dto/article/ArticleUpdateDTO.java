@@ -22,7 +22,7 @@ public class ArticleUpdateDTO {
     @NonNull
     private Integer sharedCount;
     @NonNull
-    private Integer imageId;
+    private String imageId;
     @NonNull
     private Integer regionId;
     @NonNull

@@ -20,7 +20,7 @@ public class ArticleCreateDTO {
     @NotBlank
     private String content;
     @NonNull
-    private Integer imageId;
+    private String imageId;
     @NonNull
     private Integer regionId;
     @NonNull

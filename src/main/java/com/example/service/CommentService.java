@@ -66,7 +66,21 @@ public class CommentService {
 
     public List<CommentDTO> getAllByArticleId(String articleId) {
         return commentRepository.findByArticleIdAndVisibleTrue(articleId).stream()
-                .map(this::toDTO)
+                .map(entity -> {
+                    CommentDTO dto = new CommentDTO();
+                    dto.setId(entity.getId());
+                    dto.setContent(entity.getContent());
+                    dto.setCreatedDate(entity.getCreatedDate());
+                    dto.setUpdateDate(entity.getUpdateDate());
+
+                    // create profile
+                    ProfileDTO profile = new ProfileDTO();
+                    profile.setId(entity.getProfileId());
+                    profile.setName(entity.getProfile().getName());
+                    profile.setSurname(entity.getProfile().getSurname());
+                    dto.setProfile(profile);
+                    return dto;
+                })
                 .toList();
     }
 
@@ -113,7 +127,26 @@ public class CommentService {
 
     public List<CommentDTO> getAllByReplyId(String commentId) {
         return commentRepository.findAllByReplyIdAndVisibleTrue(commentId).stream()
-                .map(this::toDTO)
+                .map(entity -> {
+                    CommentDTO dto = new CommentDTO();
+                    dto.setId(entity.getId());
+                    dto.setCreatedDate(entity.getCreatedDate());
+                    dto.setUpdateDate(entity.getUpdateDate());
+                    dto.setContent(entity.getContent());
+                    dto.setReplyId(entity.getReplyId());
+                    dto.setVisible(entity.getVisible());
+
+                    // create profile
+                    ProfileDTO profileDTO = new ProfileDTO();
+                    profileDTO.setId(entity.getProfileId());
+                    dto.setProfile(profileDTO);
+
+                    // create article
+                    ArticleDTO articleDTO = new ArticleDTO();
+                    articleDTO.setId(entity.getArticleId());
+                    dto.setArticle(articleDTO);
+                    return dto;
+                })
                 .toList();
     }
 
