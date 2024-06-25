@@ -38,8 +38,8 @@ public class CommentController {
 
     @DeleteMapping("/delete/{commentId}")
     public ResponseEntity<Boolean> delete(@PathVariable String commentId) {
-        Boolean response = commentService.delete(commentId);
-        return ResponseEntity.ok(response);
+        commentService.delete(commentId);
+        return ResponseEntity.ok(true);
     }
 
 
